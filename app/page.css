@@ -1,0 +1,105 @@
+:root {
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+body{
+  padding: 0;
+  margin: 0;
+}
+
+button{
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.sendButton{
+  background-color: rgb(255, 98, 0);
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: .5rem 3rem .5rem 3rem;
+  font-size: 16px;
+  box-shadow: 2px 6px 10px rgb(255, 159, 99);
+  margin: 1rem auto 0 auto;
+}
+
+.modal-img {
+  width: 75%;
+  height: 50%;
+}
+
+.modal-title {
+  color: black;
+  font-family: sans-serif;
+}
+
+.modal-text {
+  color: rgb(59, 59, 59);
+  font-family: sans-serif;
+}
+
+.entry-buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.entry-buttons div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 2.5rem;
+  border: 2px solid rgb(255, 111, 0);
+  border-radius: 30px;
+}
+
+.entry-buttons div a{
+  font-size: 1rem;
+  text-decoration: none;
+  color: #242424;
+}
+
+.entry-button-login{
+  background-color: white;
+  color: rgb(255, 111, 0);
+  margin-right: 35px;
+}
+
+.entry-button-login:hover + .entry-button-reg{
+  background-color: white;
+  color: rgb(255, 111, 0);
+}
+
+.entry-button-reg,
+.entry-button-login:hover{
+  background-color: rgb(255, 111, 0);
+  color: white;
+  transition: .5s;
+}
+
+.start-container{
+  padding-top: 5%;
+  padding-bottom: 17%;
+  text-align: center;
+  background-image: url('../public/starting-page.png');
+  background-repeat: no-repeat;
+  background-size: 100% 95%;
+  color: white;
+}
+
+.start-container p {
+  font-size: .65rem;
+}
+
+.start-section{
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}

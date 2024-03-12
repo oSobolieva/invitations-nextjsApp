@@ -1,0 +1,33 @@
+.register__form {
+    width: 25%;
+    background-color: white;
+    padding: 15px 0px 25px 30px;
+    margin: 60px auto;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.register__form__title{
+    color: black;
+    font-size: 1rem;
+    margin-left: 3rem;
+}
+
+.register__form_button {
+    background-color: rgb(255, 98, 0);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: .5rem 3rem .5rem 3rem;
+    font-size: 16px;
+    box-shadow: 2px 6px 10px rgb(255, 159, 99);
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.register__form_button:disabled{
+    background-color: rgb(255, 149, 82);
+    cursor: auto;
+}
