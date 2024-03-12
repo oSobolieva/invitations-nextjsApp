@@ -1,0 +1,30 @@
+.form_block {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-bottom: 15px;
+}
+
+.form_label {
+    color: black;
+}
+
+.form_input {
+    background-color: rgb(252, 202, 158);
+    border: grey;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 8px 0px 8px 10px;
+    color: #242424;
+}
+
+.error-input {
+    border: 2px solid red;
+    background-color: rgb(252, 175, 158);
+}
+
+.error-message {
+    color: red;
+    font-size: .5rem;
+    font-weight: 600;
+}
