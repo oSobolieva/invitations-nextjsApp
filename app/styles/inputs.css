@@ -1,11 +1,12 @@
 .form_block {
     display: flex;
     flex-direction: column;
-    width: 70%;
-    margin-bottom: 15px;
+    width: 80%;
+    margin: 15px auto;
 }
 
 .form_label {
+    position: relative;
     color: black;
 }
 
@@ -16,6 +17,18 @@
     font-size: 18px;
     padding: 8px 0px 8px 10px;
     color: #242424;
+}
+
+.form__input_eye{
+    position: absolute;
+    width: 1.2rem;
+    height: 1.1rem;
+    top: 50%;
+    right: 20%;
+}
+
+.form__input_eye:hover{
+    cursor: pointer;
 }
 
 .error-input {

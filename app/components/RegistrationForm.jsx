@@ -1,9 +1,10 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import RegistrationInput from './Input';
+import Input from './Input';
 
 import '@/app/styles/registerPage.css'
+import '@/app/styles/loading.css'
 
 
 export default function RegistrationForm() {
@@ -18,10 +19,12 @@ export default function RegistrationForm() {
         error: false,
         text: '',
     });
-    let disab = inputsErrors['name'] && inputsErrors['surname'] && inputsErrors['email'] && inputsErrors['password'];
+    const [loading, setLoading] = useState(false);
+    let disabledButton = !inputsErrors['name'] && !inputsErrors['surname'] && !inputsErrors['email'] && !inputsErrors['password'];
 
     async function checkUser(e) {
         e.preventDefault();
+        setLoading(true);
         
         const formData = new FormData(e.currentTarget);
         const userName = formData.get('name') + ' ' + formData.get('surname');
@@ -36,6 +39,9 @@ export default function RegistrationForm() {
                     name: userName,
                     email: formData.get('email'),
                     password: formData.get('password'),
+                    image: '',
+                    events: [],
+                    friends: [],
                 })
             });
 
@@ -55,14 +61,18 @@ export default function RegistrationForm() {
     }
 
     return (
-        <form className='register__form' onSubmit={checkUser}>
-            <h1 className = 'register__form__title'>- Registration - </h1>
-            <RegistrationInput Ilabel='Enter Name' Iplaceholder='Name..' Itype='text' Iname='name' hasError={getError} />
-            <RegistrationInput Ilabel='Enter Surname' Iplaceholder='Surname..' Itype='text' Iname='surname' hasError={getError} />
-            <RegistrationInput Ilabel='Enter Email' Iplaceholder='Email..' Itype='email' hasError={getError}/>
-            <RegistrationInput Ilabel='Enter Password' Iplaceholder='Password..' Itype='password' hasError={getError}/>
-            <button className='register__form_button' disabled={!disab}>Register</button>
-            {registrationError.error && <p style={{ color: 'red' }}>{registrationError.text}</p>}
-        </form>
+        <>
+            {loading && <span className="loader"></span>}
+            <form className='register__form' onSubmit={checkUser}>
+                <h1 className = 'register__form__title'>- Registration - </h1>
+                <Input Ilabel='Enter Name' Iplaceholder='Name..' Itype='text' Iname='name' hasError={getError} />
+                <Input Ilabel='Enter Surname' Iplaceholder='Surname..' Itype='text' Iname='surname' hasError={getError} />
+                <Input Ilabel='Enter Email' Iplaceholder='Email..' Itype='email' hasError={getError}/>
+                <Input Ilabel='Enter Password' Iplaceholder='Password..' Itype='password' Iname='password' hasError={getError}/>
+                <button className='register__form_button' disabled={!disabledButton}>Register</button>
+                {registrationError.error && <p style={{ color: 'red' }}>{registrationError.text}</p>}
+            </form>
+        </>
+        
     )
 }

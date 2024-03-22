@@ -1,13 +1,11 @@
 .friends-modal {
-    position: absolute;
-    margin: 3rem auto;
+    margin: 0rem auto;
     padding: 2rem 1rem;
-    background-color: white;
-    width: 25%;
+    background-color: rgb(252, 202, 158);
+    width: 90%;
     height: 50vh;
     border-radius: 20px;
     text-align: center;
-    z-index: 3;
 }
 
 .searching {
@@ -171,10 +169,13 @@
 }
 
 .new-event{
-    max-width: 40%;
+    position: absolute;
+    top: 3%;
+    left: 30%;
+    z-index: 4;
+    width: 40%;
     padding: 1rem 2rem;
-    margin: 0 auto;
-    border-radius: 1.2rem;
+    border-radius: 1.4rem;
     background-color: rgb(236, 130, 49);
 }
 
@@ -184,7 +185,7 @@
 }
 
 .new-event__title h1{
-    color: rgb(252, 202, 158);
+    color: #242424;
     margin: 0;
 }
 
@@ -195,7 +196,7 @@
     padding: 0;
     font-size: 1.3rem;
     font-weight: 600;
-    color:rgb(252, 202, 158);
+    color:#242424;
 }
 
 .new-event__form{
@@ -209,13 +210,50 @@
     border-radius: 50%;
     background-color: rgb(252, 202, 158);
     color: #242424;
+    clip-path: polygon(29.9% 0%, 50.1% 15%, 70.1% 0%, 90.3% 10%, 95.9% 35.3%, 80.3% 70%, 50.1% 100.3%, 19.7% 70%, 2.4% 35%, 9.7% 10%);
 }
 
 .new-event__form select{
+    width: 70%;
     background-color: rgb(252, 202, 158);
     border: grey;
     border-radius: 8px;
     font-size: 18px;
     padding: 8px 0px 8px 10px;
+    margin-bottom: 15px;
     color: #242424;
 }
+
+.new-event__form__sendBtn{
+    background-color: rgb(236, 130, 49);
+    border: 2px solid #242424;
+    border-radius: 25px;
+    width: 32%;
+    margin: 0 auto;
+    padding: .5rem;
+    color: #242424;
+    font-size: 1rem;
+}
+
+.new-event__error_message{
+    font-size: .8rem;
+    margin: 0 auto;
+    color: rgb(172, 3, 3);
+}
+
+.events__board{
+    width: 87%;
+    margin: 3rem auto;
+}
+
+.event{
+    width: 15%;
+    background-color: rgb(240, 104, 0);
+    padding: .5rem;
+    text-align: center;
+    border-radius: .8rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+

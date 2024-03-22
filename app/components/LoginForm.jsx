@@ -2,27 +2,26 @@
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Input from './Input';
 
 import '@/app/styles/loginPage.css'
+import '@/app/styles/loading.css'
 
 export default function LoginForm() {
     const route = useRouter();
-    const [error, setError] = useState({
-        error: false,
-        text: ''
+    const [errors, setErrors] = useState({
+        "email": false,
+        "password": false
     });
+    const [loading, setLoading] = useState(false);
 
     async function checkUser(e) {
         e.preventDefault();
         
-        const formData = new FormData(e.currentTarget);
-
-        if (formData.get('email').trim() == '' || formData.get('password').trim() == '') {
-            setError({
-                error: true,
-                text: 'Each field must have personal data for login.'
-            });
-        } else {
+        if (!errors["email"] && !errors["password"]) {
+            setLoading(true);
+            const formData = new FormData(e.currentTarget);
+            
             const response = await signIn('credentials', {
                 email: formData.get('email'),
                 password: formData.get('password'),
@@ -43,23 +42,19 @@ export default function LoginForm() {
         }
         
     }
-
-    const removeError = () => setError({error: false, text: ''});
     
+    const getErrors = (field, value) => setErrors(previous => ( { ...previous, [field]: value } ));
 
     return (
-        <form className = 'start__form' onSubmit={checkUser}>
-            <div className = 'start__form_block'>
-                    <label className = 'start__form_label'>User Name</label>
-                    <input type='email' placeholder="email" className = 'start__form_input' name='email' onFocus={removeError}/>
-                </div>
-                <div className = 'start__form_block'>
-                    <label className = 'start__form_label'>Password</label>
-                    <input type='password' placeholder="" className = 'start__form_input' name='password' onFocus={removeError}/>
-                </div>
-            <button className='start__form_button'>Go</button>
-            {error.error && <p className='start__form_error-text'>{error.text}</p>}
-        </form>
+        <>
+            {loading && <span className="loader"></span>}
+            <form className='start__form' onSubmit={checkUser}>
+                <Input Ilabel='Enter Email' Iplaceholder='Email..' Itype='email' hasError={getErrors}/>
+                <Input Ilabel='Enter Password' Iplaceholder='Password..' Itype='password' Iname='password' hasError={getErrors}/>
+                <button className='start__form_button'>Go</button>
+            </form>
+        </>
+        
     )
 }
 
