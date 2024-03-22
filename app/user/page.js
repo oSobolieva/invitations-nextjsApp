@@ -1,7 +1,6 @@
 import { GET } from '../api/auth/[...nextauth]/route'
 import { getServerSession } from 'next-auth';
 import UserPage from "../components/UserPage"
-import avatarRandomizer from '../components/helpers/avatarRandomizer';
 
 import '../styles/userPage.css'
 
@@ -22,11 +21,6 @@ async function getUsers(user) {
 export default async function Page() {
   const session = await getServerSession(GET);
   const USER_INFORMATION = await getUsers(session.user.email);
-  let userImage = USER_INFORMATION[0].image;
 
-  if (userImage == '') {
-    userImage = avatarRandomizer();
-  }
-
-  return <UserPage name={USER_INFORMATION[0].name} email={USER_INFORMATION[0].email} image={userImage} friends={USER_INFORMATION[0].friends} />
+  return <UserPage user={USER_INFORMATION[0]} />
 }
