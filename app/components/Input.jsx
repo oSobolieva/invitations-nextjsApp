@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from 'next/image'
 import validateForm from "./helpers/validateForm";
 import eye from './assets/password-eye.png'
@@ -11,40 +11,39 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
         error: false,
         text: '',
     });
-    const showIcon = Iname == 'password';
+
+    const inputRef = useRef(null);
     
-    function checkBlur(e) {
+    const checkBlur = useCallback((e) => {
         let validationResult; 
-        if (Iname == 'name' || Iname == 'surname') {
+        if (Iname === 'name' || Iname === 'surname') {
             validationResult = validateForm(e.target.value, Itype);
         } else {
             validationResult = validateForm(e.target.value, Iname);
         }
         setErrorMessage(validationResult);
         hasError( Iname, validationResult.error);
-    }
+    }, [Iname, hasError]);
 
     function showPassword() {
-        const input = document.getElementsByName(Iname);
-
-        if (input[0].getAttribute('type') == 'password') {
-            input[0].setAttribute('type', 'text');
-        } else {
-            input[0].setAttribute('type', 'password');
-        }
+        const input = inputRef.current;
+        input.type = input.type === 'password' ? 'text' : 'password';
     }
     
     return (
         <div className = 'form_block'>
-            <label className='form_label'>{Ilabel}
-            <input type={Itype}
-                placeholder={Iplaceholder}
-                className={errorMessage.error ? 'form_input error-input' : 'form_input'}
-                name={Iname}
-                onBlur={checkBlur}
-                {...props}
-            />
-            {showIcon && <Image  src={eye} alt="Picture of the author" className='form__input_eye' onClick={showPassword} /> }
+            <label className='form_label'>
+                {Ilabel}
+                <input
+                    type={Itype}
+                    placeholder={Iplaceholder}
+                    className={errorMessage.error ? 'form_input error-input' : 'form_input'}
+                    name={Iname}
+                    onBlur={checkBlur}
+                    ref={inputRef}
+                    {...props}
+                />
+                {Iname === 'password' && <Image  src={eye} alt="Picture of the author" className='form__input_eye' onClick={showPassword} /> }
             </label>           
             {errorMessage.error && <p className='error-message'>{errorMessage.text}</p>}
         </div>

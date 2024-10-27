@@ -31,3 +31,5 @@ export default function validateForm(value, type) {
    
 }
 
+// CAN TEST.
+

@@ -19,6 +19,12 @@ button:hover {
   cursor: pointer;
 }
 
+#modal{
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
 .sendButton{
   background-color: rgb(255, 98, 0);
   color: white;
