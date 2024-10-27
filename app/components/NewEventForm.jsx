@@ -9,23 +9,12 @@ export default function EventForm({closeForm, friends, email}) {
     const [showFriends, setShowFriends] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    function sendForm(e) {
+    const sendForm = (e) => {
         e.preventDefault();
-        
         const formData = new FormData(e.currentTarget);
-        
+
         if (fieldsNotEmpty(formData)) {
-
-            const letter = `Hello, Dear! NAME, I want to invite you to ${formData.get('title')}. It will be an OPTION with ${formData.get('dresscode')} dress-code.
-            ${formData.get('description')}.
-            When? ${formData.get('date')} ${formData.get('time')}. 
-            Where? ${formData.get('location')}.
-            I'm looking forward to you! 
-            Sincerely yours, USERNAME.`
-
-            //sending letters to friend's emails
-            
-            addEventToDB({
+            const eventDetails = {
                 title: formData.get('title'),
                 type: formData.get('type'),
                 dresscode: formData.get('dresscode'),
@@ -33,15 +22,29 @@ export default function EventForm({closeForm, friends, email}) {
                 date: formData.get('date'),
                 time: formData.get('time'),
                 location: formData.get('location')
-            }, email);
-
-            //SEND FRIENDS TO DB TOO!!!!
+            };
+            
+            sendInvitations(eventDetails);
+            addEventToDB(eventDetails, email);
         } else {
             setErrorMessage('All fields need to have text.');
         }
-        
-    }
+    };
 
+    const fieldsNotEmpty = (form) => {
+        return (
+            form.get('title').trim() !== '' &&
+            form.get('dresscode').trim() !== '' &&
+            form.get('description').trim() !== '' &&
+            form.get('location').trim() !== '' &&
+            form.get('date').trim() !== '' &&
+            form.get('time').trim() !== ''
+        );
+    };
+
+    const sendInvitations = (eventDetails) => {
+        // send to friends' emails!!!  ADD FRIENDS TO DB
+    };
     return (
         <div className = 'new-event'>
             <div className='new-event__title'>
@@ -71,13 +74,4 @@ export default function EventForm({closeForm, friends, email}) {
     )
 }
 
-
-function fieldsNotEmpty(form) {
-    return form.get('title').trim() !== '' &&
-        form.get('dresscode').trim() !== '' &&
-        form.get('description').trim() !== '' &&
-        form.get('location').trim() !== '' &&
-        form.get('date').trim() !== '' &&
-        form.get('time').trim() !== '';
-}
 

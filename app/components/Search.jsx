@@ -12,7 +12,6 @@ export default function Search({ dummy_friends }) {
     useEffect(() => {
         const delay = setTimeout(() => {
             const newUsers = dummy_friends.filter((el) => el.name.indexOf(ref) >= 0);
-            //el.name.includes(ref);
             setUsers(newUsers);
         }, 1500);
         

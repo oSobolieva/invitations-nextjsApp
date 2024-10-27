@@ -14,6 +14,7 @@ export default function LoginForm() {
         "password": false
     });
     const [loading, setLoading] = useState(false);
+    const [unauthorized, setUnauthorized] = useState(false);
 
     async function checkUser(e) {
         e.preventDefault();
@@ -29,11 +30,7 @@ export default function LoginForm() {
             });
 
             if (response.status == 401) {
-                console.log('+');
-                setError({
-                    error: true,
-                    text: 'User does not exist. Check the entered data or register!'
-                });
+                setUnauthorized(true);
             }
 
             if (!response?.error) {
@@ -53,6 +50,7 @@ export default function LoginForm() {
                 <Input Ilabel='Enter Password' Iplaceholder='Password..' Itype='password' Iname='password' hasError={getErrors}/>
                 <button className='start__form_button'>Go</button>
             </form>
+            {unauthorized && <p className = "unauthorized_error">User does not exist. Check the entered data or register!</p>}
         </>
         
     )

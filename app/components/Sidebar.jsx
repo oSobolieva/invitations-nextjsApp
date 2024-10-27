@@ -39,7 +39,7 @@ export default function Sidebar({ info }) {
         if (e.target.files[0]) {
             let reader = new FileReader();
             reader.onload = function () {
-                addNewAvatar(reader.result, email);
+                addNewAvatar(reader.result, info.email);
             }
 
             reader.readAsDataURL(e.target.files[0]);
