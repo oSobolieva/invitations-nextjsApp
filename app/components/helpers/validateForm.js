@@ -1,5 +1,5 @@
 
-export default function validateForm(value, type) {
+module.exports = function validateForm(value, type) {
       if (value.trim() == '') {
             return { error: true, text: 'field must not be empty!' };
       }
@@ -31,5 +31,4 @@ export default function validateForm(value, type) {
    
 }
 
-// CAN TEST.
 
