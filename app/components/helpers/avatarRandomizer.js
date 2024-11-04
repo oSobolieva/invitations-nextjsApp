@@ -1,17 +1,20 @@
 
-import dog from '@/public/dog.png'
-import fox from '@/public/fox.png'
-import koala from '@/public/koala.png'
-import leopard from '@/public/leopard.png'
-import tiger from '@/public/tiger.png'
-import vdr from '@/public/vdr.png'
-import zebra from '@/public/zebra.png'
+const dog = '../../../public/dog.png'
+const fox = '../../../public/fox.png'
+const koala = '../../../public/koala.png'
+const leopard = '../../../public/leopard.png'
+const tiger = '../../../public/tiger.png'
+const vdr = '../../../public/vdr.png'
+const zebra = '../../../public/zebra.png'
 
 const images = [dog, fox, koala, leopard, tiger, vdr, zebra];
 
 
-export default function avatarRandomizer() {
+module.exports = function avatarRandomizer() {
     const randomIndexImages = Math.floor(Math.random() * images.length);
 
-    return images[randomIndexImages].src;
+    return images[randomIndexImages];
 }
+
+
+//return images[randomIndexImages].src;
