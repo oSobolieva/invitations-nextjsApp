@@ -1,4 +1,5 @@
 'use client'
+import React from "react";
 import Search from "./Search";
 
 import '@/app/styles/userPage.css'

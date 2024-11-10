@@ -28,5 +28,3 @@ module.exports = function Search({ dummy_friends }) {
     )
 }
 
-
-//test - перевірка пошуку
