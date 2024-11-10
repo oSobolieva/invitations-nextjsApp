@@ -1,9 +1,10 @@
 'use client'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { signOut } from 'next-auth/react';
 import addNewAvatar from './helpers/changeAvatar.js'
 
-import '@/app/styles/userPage.css'
+//import '@/app/styles/userPage.css'
+import '../../app/styles/userPage.css'
 import avatarRandomizer from './helpers/avatarRandomizer.js';
 
 export default function Sidebar({ info }) {

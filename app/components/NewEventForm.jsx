@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react"
+import React,{ useState } from "react"
 import Input from "./Input"
 import SearchContainer from "./SearchContainer"
 import addEventToDB from "./helpers/eventToDB";
@@ -45,6 +45,8 @@ export default function EventForm({closeForm, friends, email}) {
     const sendInvitations = (eventDetails) => {
         // send to friends' emails!!!  ADD FRIENDS TO DB
     };
+
+    
     return (
         <div className = 'new-event'>
             <div className='new-event__title'>

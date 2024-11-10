@@ -1,16 +1,5 @@
 import avatarRandomizer from '../components/helpers/avatarRandomizer';
 
-// Мок для зображень
-const images = [
-    { src: '../../../public/dog.png' },
-    { src: '../../../public/fox.png' },
-    { src: '../../../public/koala.png' },
-    { src: '../../../public/leopard.png' },
-    { src: '../../../public/tiger.png' },
-    { src: '../../../public/vdr.png' },
-    { src: '../../../public/zebra.png' },
-];
-
 
 test('returns an image', () => {
   const result = avatarRandomizer();
