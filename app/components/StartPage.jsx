@@ -1,9 +1,14 @@
-import EntryButtons from "./EntryButtons"
+//import EntryButtons from "./EntryButtons"
+import React, { Suspense } from 'react';
+
+const EntryButtons = React.lazy(() => import('./EntryButtons'));
+
 
 export default function Start(){
 
     return (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
+            <link rel="preload" as="image" href="../../public/starting-page.png"></link>
             <div className = 'start-container'>
                 <h1>Hello from 'Invitations'!</h1>
                 <p>Login or register to create a new invitation &#128516;</p>
@@ -16,6 +21,6 @@ export default function Start(){
                     After creating an event, you can edit it and resend invitations.
                     If your friends are not registered in our application, you can add their emails manually.</p>
             </section>
-        </>
+        </Suspense>
     )
 }

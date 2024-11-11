@@ -1,5 +1,4 @@
 
-
 export const metadata = {
   title: "Invitations",
   description: "Invite your friends!",
