@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import addNewAvatar from './helpers/changeAvatar.js'
 
@@ -54,7 +55,7 @@ export default function Sidebar({ info }) {
             <aside className={showSidebar.sidebarClass}>
                 <div>
                     <div className = 'sidebar_avatar'>
-                        <img src={avatar} className='sidebar_logo' />
+                        <Image src={avatar} loading="lazy" className='sidebar_logo' />
                         <label htmlFor='sidebar_changeLogo' title='change the avatar'>&#9997;</label>
                         <input type='file' id='sidebar_changeLogo' accept='image/*' onChange={handleAvatar}/>
                     </div>
