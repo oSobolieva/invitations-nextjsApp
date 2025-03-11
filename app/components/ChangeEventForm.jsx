@@ -25,41 +25,41 @@ export default function ChangeEventForm({information, closeEventInfo}) {
         <form className='event_information' onSubmit={handleSubmit}>
             <div className = 'event_information__header'>
                 <label>
-                    Title: 
+                    Назва: 
                     <input type='text' name='title' value={information.title} />
                 </label>
                 <button onClick={closeEventInfo}>X</button>
             </div>
             <label>
-                Type: 
+                Тип: 
                 <select name='type'>
                     <option selected="selected">{information.type}</option>
-                    <option>Party</option>
+                    <option>Вечірка</option>
                     <option>After-party</option>
-                    <option>Sex-party</option>
-                    <option>Funeral</option>
-                    <option>Wedding</option>
-                    <option>Birthday</option>
+                    <option>Гендерна вечірка</option>
+                    <option>Поховання</option>
+                    <option>Весілля</option>
+                    <option>День народження</option>
                 </select>
             </label>
             <label>
-                Dress-code: 
+                Стиль одягу: 
                 <input type='text' name='dresscode' value={information.dresscode} />
             </label>
             <label>
-                Description: 
+                Опис: 
                 <input type='text' name='description' value={information.description} />
             </label>
             <label>
-                Date: 
+                Дата: 
                 <input type='date' name='date' value={information.date} />
             </label>
             <label>
-                Time: 
+                Час: 
                 <input type='time' name='time' value={information.time} />
             </label>
             <label>
-                Location: 
+                Локація: 
                 <input type='text' name='location' value={information.location} />
             </label>
         </form>

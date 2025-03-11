@@ -55,7 +55,7 @@ export default function Sidebar({ info }) {
             <aside className={showSidebar.sidebarClass}>
                 <div>
                     <div className = 'sidebar_avatar'>
-                        <Image src={avatar} loading="lazy" className='sidebar_logo' />
+                        <Image src={avatar} loading="lazy" width={135} height={135} className='sidebar_logo' />
                         <label htmlFor='sidebar_changeLogo' title='change the avatar'>&#9997;</label>
                         <input type='file' id='sidebar_changeLogo' accept='image/*' onChange={handleAvatar}/>
                     </div>

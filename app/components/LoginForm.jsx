@@ -46,11 +46,11 @@ export default function LoginForm() {
         <>
             {loading && <span className="loader"></span>}
             <form className='start__form' onSubmit={checkUser}>
-                <Input Ilabel='Enter Email' Iplaceholder='Email..' Itype='email' hasError={getErrors}/>
-                <Input Ilabel='Enter Password' Iplaceholder='Password..' Itype='password' Iname='password' hasError={getErrors}/>
-                <button className='start__form_button'>Go</button>
+                <Input Ilabel='Введіть Email' Iplaceholder='example123@ukr.net' Itype='email' hasError={getErrors}/>
+                <Input Ilabel='Введіть пароль' Iplaceholder='' Itype='password' Iname='password' hasError={getErrors}/>
+                <button className='start__form_button'>Увійти</button>
             </form>
-            {unauthorized && <p className = "unauthorized_error">User does not exist. Check the entered data or register!</p>}
+            {unauthorized && <p className = "unauthorized_error">Користувач не існує. Перевірте введені дані або зареєструйтесь!</p>}
         </>
         
     )

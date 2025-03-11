@@ -1,11 +1,11 @@
 
-const dog = '../../../public/dog.png'
-const fox = '../../../public/fox.png'
-const koala = '../../../public/koala.png'
-const leopard = '../../../public/leopard.png'
-const tiger = '../../../public/tiger.png'
-const vdr = '../../../public/vdr.png'
-const zebra = '../../../public/zebra.png'
+const dog = '/dog.png'
+const fox = '/fox.png'
+const koala = '/koala.png'
+const leopard = '/leopard.png'
+const tiger = '/tiger.png'
+const vdr = '/vdr.png'
+const zebra = '/zebra.png'
 
 const images = [dog, fox, koala, leopard, tiger, vdr, zebra];
 

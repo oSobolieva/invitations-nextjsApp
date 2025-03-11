@@ -54,20 +54,20 @@ export default function EventForm({closeForm, friends, email}) {
                 <button onClick={closeForm}>X</button>
             </div>
             <form className='new-event__form' onSubmit={sendForm}>
-                <Input Ilabel='Event Name' Itype='text' Iplaceholder='enter event' Iname='title' hasError={() => console.log('+')} />
+                <Input Ilabel='Назва заходу' Itype='text' Iplaceholder='enter event' Iname='title' hasError={() => console.log('+')} />
                 <select name='type'>
-                    <option>Party</option>
+                    <option>Вечірка</option>
                     <option>After-party</option>
-                    <option>Sex-party</option>
-                    <option>Funeral</option>
-                    <option>Wedding</option>
-                    <option>Birthday</option>
+                    <option>Гендерна вечірка</option>
+                    <option>Поховання</option>
+                    <option>Весілля</option>
+                    <option>День народження</option>
                 </select>
-                <Input Ilabel='Dress-code' Itype='text' Iplaceholder='enter dress-code' Iname='dresscode' hasError={() => console.log('+')} />
-                <Input Ilabel='Description' Itype='text' Iplaceholder='description..' Iname='description' hasError={() => console.log('+')} />
-                <Input Ilabel='Location' Itype='text' Iplaceholder='enter address' Iname='location' hasError={() => console.log('+')} />
-                <Input Ilabel='Date' Itype='date' Iplaceholder='' Iname='date' hasError={() => console.log('+')} />
-                <Input Ilabel='Time' Itype='time' Iplaceholder='' Iname='time' hasError={() => console.log('+')} />
+                <Input Ilabel='Стиль одягу' Itype='text' Iplaceholder='enter dress-code' Iname='dresscode' hasError={() => console.log('+')} />
+                <Input Ilabel='Опис' Itype='text' Iplaceholder='description..' Iname='description' hasError={() => console.log('+')} />
+                <Input Ilabel='Локація' Itype='text' Iplaceholder='enter address' Iname='location' hasError={() => console.log('+')} />
+                <Input Ilabel='Дата' Itype='date' Iplaceholder='' Iname='date' hasError={() => console.log('+')} />
+                <Input Ilabel='Час' Itype='time' Iplaceholder='' Iname='time' hasError={() => console.log('+')} />
                 {showFriends ? <SearchContainer people={friends} /> : <button className='new_event__friends' onClick={() => setShowFriends(true)}>Friends</button>}
                 <button className = 'new-event__form__sendBtn'>Send Invitations!</button>
             </form>

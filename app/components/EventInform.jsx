@@ -6,15 +6,15 @@ export default function EventInform({ information, handleChangeInfo, closeEventI
     return (
         <div className='event_information'>
             <div className = 'event_information__header'>
-                <p>Title:  <span>{information.title}</span></p>
+                <p>Назва:  <span>{information.title}</span></p>
                 <button onClick = {closeEventInfo}>X</button>
             </div>
-            <p>Type:  <span> {information.type}</span></p>
-            <p>Dress-code:  <span> {information.dresscode}</span></p>
-            <p>Description:  <span> {information.description}</span></p>
-            <p>Date:  <span> {information.date}</span></p>
-            <p>Time:  <span> {information.time}</span></p>
-            <p>Location:  <span> {information.location}</span></p>
+            <p>Тип:  <span> {information.type}</span></p>
+            <p>Стиль одягу:  <span> {information.dresscode}</span></p>
+            <p>Опис:  <span> {information.description}</span></p>
+            <p>Дата:  <span> {information.date}</span></p>
+            <p>Час:  <span> {information.time}</span></p>
+            <p>Локація:  <span> {information.location}</span></p>
             <button className='change_event_inform' onClick={() => handleChangeInfo()}>&#9997;</button>
         </div>
     )

@@ -11,31 +11,41 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
         error: false,
         text: '',
     });
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     const inputRef = useRef(null);
-    
-    const checkBlur = useCallback((e) => {
-        let validationResult; 
-        if (Iname === 'name' || Iname === 'surname') {
-            validationResult = validateForm(e.target.value, Itype);
-        } else {
-            validationResult = validateForm(e.target.value, Iname);
-        }
-        setErrorMessage(validationResult);
-        hasError( Iname, validationResult.error);
-    }, [Iname, hasError]);
 
-    function showPassword() {
-        const input = inputRef.current;
-        input.type = input.type === 'password' ? 'text' : 'password';
+    const checkBlur = (e) => {
+        if (e.relatedTarget && e.relatedTarget.classList.contains("form__input_eye")) {
+            return;
+        }
+
+        let validationResult = validateForm(
+            e.target.value,
+            Iname === "name" || Iname === "surname" ? Itype : Iname
+        );
+            
+        if (Iname === "password") {
+            setIsPasswordVisible(false);
+        }
+
+        setErrorMessage(validationResult);
+        hasError(Iname, validationResult.error);
+    };
+
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible((prev) => !prev); 
     }
+
+    const inputType = Iname === "password" ? (isPasswordVisible ? "text" : "password") : Itype;
     
     return (
         <div className = 'form_block'>
             <label className='form_label'>
                 {Ilabel}
                 <input
-                    type={Itype}
+                    type={inputType}
                     placeholder={Iplaceholder}
                     className={errorMessage.error ? 'form_input error-input' : 'form_input'}
                     name={Iname}
@@ -43,7 +53,14 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
                     ref={inputRef}
                     {...props}
                 />
-                {Iname === 'password' && <Image  src={eye} alt="Picture of the author" className='form__input_eye' onClick={showPassword} /> }
+                {Iname === 'password' && (
+                    <Image src={eye}
+                        alt="Show password"
+                        className='form__input_eye'
+                        tabIndex="-1"
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={togglePasswordVisibility} />
+                )}
             </label>           
             {errorMessage.error && <p className='error-message'>{errorMessage.text}</p>}
         </div>

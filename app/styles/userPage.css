@@ -96,12 +96,13 @@
     font-size: 28px;
     box-shadow: none;
     width: 80%;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
     margin: 0 auto;
 }
 
 .sidebar_button:hover {
-    box-shadow: 2px 2px 7px white;
+    box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
+    /*2px 2px 7px white;*/
 }
 
 .show-sidebar {
@@ -128,9 +129,8 @@
     justify-content: center;
 }
 
-.sidebar_logo{
-    width: 60%;
-    height: 40%;
+.sidebar_logo{ 
+    border-radius: 50%;
 }
 
 .sidebar_avatar label:hover{
