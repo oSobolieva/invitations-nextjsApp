@@ -1,8 +1,7 @@
 .form_block {
     display: flex;
     flex-direction: column;
-    width: 80%;
-    margin: 15px auto;
+    margin: 15px 0px 15px .8rem;
 }
 
 .form_label {
@@ -17,6 +16,7 @@
     font-size: .9rem;
     padding: 8px 0px 8px 10px;
     color: #242424;
+    width: 90%;
 }
 
 .form__input_eye{
@@ -24,7 +24,7 @@
     width: 1.2rem;
     height: 1.1rem;
     top: 50%;
-    right: 20%;
+    right: 10%;
 }
 
 .form__input_eye:hover{
@@ -40,4 +40,5 @@
     color: red;
     font-size: .5rem;
     font-weight: 600;
+    white-space: pre-line;
 }

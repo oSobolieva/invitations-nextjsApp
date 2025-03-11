@@ -1,4 +1,3 @@
-//import EntryButtons from "./EntryButtons"
 import React, { Suspense } from 'react';
 
 const EntryButtons = React.lazy(() => import('./EntryButtons'));
@@ -10,16 +9,17 @@ export default function Start(){
         <Suspense fallback={<div>Loading...</div>}>
             <link rel="preload" as="image" href="../../public/starting-page.png"></link>
             <div className = 'start-container'>
-                <h1>Hello from 'Invitations'!</h1>
-                <p>Login or register to create a new invitation &#128516;</p>
+                <h1>Привіт від 'Invitations'!</h1>
+                <p>Увійдіть або зареєструйтеся, щоб створити нове запрошення &#128516;</p>
                 <EntryButtons/>
             </div>
             <section className = 'start-section'>
-                <h2>What is 'Invitations' about?</h2>
-                <p>Hey! We're new app 'Invitations'! Where you can create a new event and invite your friends.
-                    When creating a new event, you indicate all the necessary data: title, date, time, description, dress code and other necessary parameters.
-                    After creating an event, you can edit it and resend invitations.
-                    If your friends are not registered in our application, you can add their emails manually.</p>
+                <h2>Що таке 'Invitations' і для чого?</h2>
+                <p>Привіт! &#128150; У нас новий додаток 'Invitations', де ви можете створити нову подію та запросити на неї друзів!
+            При створенні нового заходу ви вказуєте всі необхідні дані,такі як назва, дата, час, опис, дрес-код.
+            Після створення події ви можете редагувати її та повторно надсилати лист з новою інформацією.
+            Якщо ваші друзі не зареєстровані в нашому додатку, ви можете додати їхні електронні адреси вручну!</p>
+                <p>Сподіваємось це допоможе вам створити яскраві події та спогади з вашими друзями та рідними!</p>
             </section>
         </Suspense>
     )
