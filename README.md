@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Invitation Creator Web App
 
-## Getting Started
+## 📌 Опис
+Invitation Creator – це вебдодаток для створення та надсилання персоналізованих запрошень. Додаток дозволяє користувачам швидко створювати цифрові запрошення на різні заходи та надсилати їх гостям.
 
-First, run the development server:
+## 🚀 Функціонал
+- 📜 **Створення запрошень** – створення запрошень за допомогою заповнення короткого опитувальника.
+- 🎨 **Редагування дизайну** – можливість змінювати інформацію та надсилати запрошення повторно.
+- ✉️ **Надсилання запрошень** – відправка запрошень електронною поштою.
+- 📊 **Видалення події** – відміна події із повідомленням про це всіх учасників.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Технології
+- **Frontend:** React
+- **Backend:** Next.js
+- **База даних:** MongoDB
+- **Інші:** (?)SendGrid (розсилка email)
+
+## 🔧 Встановлення та запуск
+### 1️⃣ Клонування репозиторію
+```sh
+git clone https://github.com/username/invitation-creator.git
+cd invitation-creator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Встановлення залежностей
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3️⃣ Запуск сервера (Backend)
+```sh
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 4️⃣ Запуск клієнта (Frontend)
+```sh
+npm run dev
+```
 
-## Learn More
+## 🎯 Використання
+1. Зареєструйтеся або увійдіть у свій акаунт.
+2. Натисніть кнопку "+" в правому нижньому кутку для відкриття форми створення запрошення.
+3. Заповніть форму.
+4. Надішліть запрошення гостям.
+5. При необхідності змінюйте інформацію або відміняйте подію.
 
-To learn more about Next.js, take a look at the following resources:
+## 📝 Ліцензія
+Проєкт розповсюджується під ліцензією MIT. Детальніше див. у файлі [LICENSE](LICENSE).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 👥 Контакти
+- 📧 Email: sasha_364@ukr.net
+- 🌐 Вебсайт: --
+- 🐙 GitHub: https://github.com/oSobolieva
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
