@@ -1,10 +1,32 @@
 'use client'
+
+/**
+Бічна панель користувача.
+
+Відображає інформацію про користувача, включаючи аватар, ім'я та email.
+
+Також дозволяє змінювати аватар та виходити з облікового запису.
+
+@component
+
+@param {Object} props - Пропси компонента.
+
+@param {Object} props.info - Інформація про користувача.
+
+@param {string} props.info.image - URL аватара користувача.
+
+@param {string} props.info.name - Ім'я користувача.
+
+@param {string} props.info.email - Email користувача.
+
+@returns {JSX.Element} Бічна панель з інформацією про користувача.
+*/
+
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import addNewAvatar from './helpers/changeAvatar.js'
 
-//import '@/app/styles/userPage.css'
 import '../../app/styles/userPage.css'
 import avatarRandomizer from './helpers/avatarRandomizer.js';
 
@@ -17,6 +39,9 @@ export default function Sidebar({ info }) {
     const text = '>>>';
     let avatar = info.image;
     
+    /**
+    Перемикає видимість бічної панелі.
+    */
     function showSidebarFn() {
         if (showSidebar.hidden) {
             setShowSidebar({
@@ -37,6 +62,11 @@ export default function Sidebar({ info }) {
         avatar = avatarRandomizer();
     }
 
+    /**
+    Обробляє зміну аватара користувача.
+
+    @param {Event} e - Подія завантаження файлу.
+    */
     function handleAvatar(e) {
         if (e.target.files[0]) {
             let reader = new FileReader();

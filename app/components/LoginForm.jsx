@@ -1,4 +1,11 @@
 'use client'
+/**
+ * Форма авторизації користувача.
+ * 
+ * @component
+ * @returns {JSX.Element} Форма для входу користувача з валідацією та перевіркою автентифікації.
+ */
+
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -16,6 +23,12 @@ export default function LoginForm() {
     const [loading, setLoading] = useState(false);
     const [unauthorized, setUnauthorized] = useState(false);
 
+    /**
+     * Обробник відправки форми. 
+     * Виконує перевірку введених даних і здійснює вхід користувача.
+     * 
+     * @param {Event} e - Подія відправки форми.
+     */
     async function checkUser(e) {
         e.preventDefault();
         
@@ -40,6 +53,12 @@ export default function LoginForm() {
         
     }
     
+    /**
+     * Оновлює стан помилок для конкретного поля.
+     * 
+     * @param {string} field - Назва поля (email або password).
+     * @param {boolean} value - Наявність помилки.
+     */
     const getErrors = (field, value) => setErrors(previous => ( { ...previous, [field]: value } ));
 
     return (

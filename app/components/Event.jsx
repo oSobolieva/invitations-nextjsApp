@@ -1,3 +1,15 @@
+/**
+ * Компонент події.
+ * 
+ * Відображає кнопку з назвою події та дозволяє переглядати або змінювати її інформацію через модальне вікно.
+ * 
+ * @component
+ * @param {Object} props - Пропси компонента.
+ * @param {Object} props.information - Інформація про подію.
+ * @param {string} props.information.title - Назва події.
+ * @returns {JSX.Element} Кнопка події з можливістю відкриття деталей.
+ */
+
 import { createPortal } from "react-dom"
 import React, { useState } from "react";
 import EventInform from "./EventInform"
@@ -7,10 +19,20 @@ import ChangeEventForm from "./ChangeEventForm";
 export default function Event({ information }) {
     const [showInformation, setShowInformation] = useState('');
 
+    /**
+     * Змінює стан показу інформації про подію.
+     * 
+     * @param {string} value - Новий стан ('info' для перегляду, 'change_info' для редагування, '' для закриття).
+     */
     function handleChangeInfo(value) {
         setShowInformation(value);
     }
 
+    /**
+     * Визначає контент для модального вікна залежно від стану `showInformation`.
+     * 
+     * @returns {JSX.Element | null} Відповідний компонент для перегляду чи редагування події.
+     */
     const renderModalContent = () => {
         switch (showInformation) {
             case 'info':
