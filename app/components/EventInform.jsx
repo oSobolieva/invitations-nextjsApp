@@ -1,4 +1,20 @@
-
+/**
+ * Компонент відображення інформації про подію.
+ * 
+ * @component
+ * @param {Object} props - Пропси компонента.
+ * @param {Object} props.information - Детальна інформація про подію.
+ * @param {string} props.information.title - Назва події.
+ * @param {string} props.information.type - Тип події.
+ * @param {string} props.information.dresscode - Дрес-код події.
+ * @param {string} props.information.description - Опис події.
+ * @param {string} props.information.date - Дата події.
+ * @param {string} props.information.time - Час події.
+ * @param {string} props.information.location - Місце проведення події.
+ * @param {Function} props.handleChangeInfo - Функція для редагування інформації про подію.
+ * @param {Function} props.closeEventInfo - Функція для закриття вікна інформації про подію.
+ * @returns {JSX.Element} Розмітка з інформацією про подію та кнопками для редагування або закриття.
+ */
 
 export default function EventInform({ information, handleChangeInfo, closeEventInfo }) {
     

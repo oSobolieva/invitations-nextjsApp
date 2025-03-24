@@ -1,9 +1,31 @@
-
+/**
+ * Форма редагування події.
+ * 
+ * Дозволяє користувачам оновлювати інформацію про подію, включаючи назву, тип, стиль одягу, опис, дату, час і локацію.
+ * 
+ * @component
+ * @param {Object} props - Пропси компонента.
+ * @param {Object} props.information - Поточна інформація про подію.
+ * @param {string} props.information.title - Назва події.
+ * @param {string} props.information.type - Тип події.
+ * @param {string} props.information.dresscode - Дрес-код для події.
+ * @param {string} props.information.description - Опис події.
+ * @param {string} props.information.date - Дата події.
+ * @param {string} props.information.time - Час події.
+ * @param {string} props.information.location - Локація події.
+ * @param {Function} props.closeEventInfo - Функція для закриття форми редагування.
+ * @returns {JSX.Element} Форма редагування події.
+ */
 
 export default function ChangeEventForm({information, closeEventInfo}) {
     
+    /**
+     * Обробник надсилання форми. Перевіряє, чи всі поля заповнені, перед надсиланням даних.
+     * 
+     * @param {Event} e - Подія надсилання форми.
+     */
     function handleSubmit(e) {
-        e.preventDefault;
+        e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
 
@@ -12,6 +34,12 @@ export default function ChangeEventForm({information, closeEventInfo}) {
         }
     }
 
+    /**
+     * Перевіряє, чи всі необхідні поля форми заповнені.
+     * 
+     * @param {FormData} form - Дані форми.
+     * @returns {boolean} `true`, якщо всі поля заповнені, інакше `false`.
+     */
     function fieldsNotEmpty(form) {
         return form.get('title').trim() !== '' &&
             form.get('dresscode').trim() !== '' &&
