@@ -1,4 +1,13 @@
 'use server'
+/**
+ * Додає новий аватар користувача в базу даних MongoDB.
+ * 
+ * @async
+ * @function addNewAvatar
+ * @param {string} img - URL або дані зображення для аватара.
+ * @param {string} email - Електронна адреса користувача.
+ * @returns {Promise<void>} Проміс без поверненого значення.
+ */
 import { MongoClient } from 'mongodb';
 
 export default async function addNewAvatar(img, email) {

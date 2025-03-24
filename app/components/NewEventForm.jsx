@@ -1,4 +1,14 @@
 'use client'
+/**
+ * Форма для створення нового заходу.
+ * 
+ * @component
+ * @param {Object} props - Пропси компонента.
+ * @param {Function} props.closeForm - Функція для закриття форми.
+ * @param {Array} props.friends - Масив друзів користувача.
+ * @param {string} props.email - Електронна адреса користувача.
+ * @returns {JSX.Element} Форма створення заходу.
+ */
 import React,{ useState } from "react"
 import Input from "./Input"
 import SearchContainer from "./SearchContainer"
@@ -9,6 +19,11 @@ export default function EventForm({closeForm, friends, email}) {
     const [showFriends, setShowFriends] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    /**
+     * Обробляє подію відправки форми.
+     * 
+     * @param {Event} e - Подія форми.
+     */
     const sendForm = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -31,6 +46,12 @@ export default function EventForm({closeForm, friends, email}) {
         }
     };
 
+    /**
+     * Перевіряє, чи всі поля форми заповнені.
+     * 
+     * @param {FormData} form - Дані форми.
+     * @returns {boolean} Чи всі поля заповнені.
+     */
     const fieldsNotEmpty = (form) => {
         return (
             form.get('title').trim() !== '' &&
@@ -42,6 +63,11 @@ export default function EventForm({closeForm, friends, email}) {
         );
     };
 
+    /**
+     * Відправляє запрошення друзям.
+     * 
+     * @param {Object} eventDetails - Деталі заходу.
+     */
     const sendInvitations = (eventDetails) => {
         // send to friends' emails!!!  ADD FRIENDS TO DB
     };
