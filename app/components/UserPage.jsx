@@ -2,7 +2,6 @@
 import React, { useState, Suspense } from 'react';
 import Sidebar from './Sidebar';
 import Event from './Event';
-//import EventForm from './NewEventForm';
 
 const LazyEventForm = React.lazy(() => import('./NewEventForm'));
 

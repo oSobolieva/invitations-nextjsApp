@@ -1,4 +1,11 @@
 
+/**
+ * Функція валідації форми для різних типів полів.
+ * 
+ * @param {string} value - Значення, яке потрібно перевірити.
+ * @param {"text" | "email" | "password"} type - Тип поля, що перевіряється.
+ * @returns {{ error: boolean, text: string }} Об'єкт з помилкою та повідомленням.
+ */
 module.exports = function validateForm(value, type) {
       if (value.trim() == '') {
             return { error: true, text: 'Поле не може бути пустим!' };

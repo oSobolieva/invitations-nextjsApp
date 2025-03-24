@@ -1,3 +1,11 @@
+/**
+ * Головна сторінка стартового екрана застосунку.
+ * 
+ * Використовує React.lazy для асинхронного завантаження компоненту EntryButtons.
+ * 
+ * @component
+ * @returns {JSX.Element} Компонент стартової сторінки.
+ */
 import React, { Suspense } from 'react';
 
 const EntryButtons = React.lazy(() => import('./EntryButtons'));
