@@ -12,7 +12,7 @@
 
 #### Команди для резервного копіювання MongoDB:
 ```sh
-mongodump --url="mongodb+srv://sobolieva364:sobolieva364@learndb.qltkemg.mongodb.net/" --out=/backups/$(date +%F)
+mongodump --url="mongodb+srv://user:password@cluster.mongodb.net/" --out=/backups/$(date +%F)
 ```
 
 ### 1.2 Перевірка сумісності
@@ -73,7 +73,7 @@ npm run build
 
 ### 4.2 Відновлення бази даних
 ```sh
-mongorestore --uri="mongodb+srv://sobolieva364:sobolieva364@learndb.qltkemg.mongodb.net/" /backups/2025-03-27
+mongorestore --uri="mongodb+srv://user:password@cluster.mongodb.net/" /backups/2025-03-27
 ```
 
 ### 4.4 Повторна перевірка
