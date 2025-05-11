@@ -43,6 +43,7 @@ export default function LoginForm() {
             });
 
             if (response.status == 401) {
+                setLoading(false);
                 setUnauthorized(true);
             }
 

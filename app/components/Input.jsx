@@ -27,6 +27,10 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
     });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+    const today = new Date();
+    const minDate = today.toISOString().split("T")[0];
+    const minTime = today.toTimeString().split(" ")[0].slice(0, 5);
+
     const inputRef = useRef(null);
 
     /**
@@ -36,6 +40,12 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
      */
     const checkBlur = (e) => {
         if (e.relatedTarget && e.relatedTarget.classList.contains("form__input_eye")) {
+            return;
+        }
+
+        if (Itype === 'time' && e.target.value < minTime) {
+            setErrorMessage({ error: true, text: 'Час не може бути в минулому' });
+            hasError(Iname, true);
             return;
         }
 
@@ -72,6 +82,7 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
                     name={Iname}
                     onBlur={checkBlur}
                     ref={inputRef}
+                    min={Itype === 'date' ? minDate : Itype === 'time' ? minTime : undefined}
                     {...props}
                 />
                 {Iname === 'password' && (

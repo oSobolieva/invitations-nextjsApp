@@ -15,6 +15,3 @@ module.exports = function avatarRandomizer() {
 
     return images[randomIndexImages];
 }
-
-
-//return images[randomIndexImages].src;

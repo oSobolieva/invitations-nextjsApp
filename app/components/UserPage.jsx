@@ -22,29 +22,23 @@
 import React, { useState, Suspense } from 'react';
 import Sidebar from './Sidebar';
 import Event from './Event';
+import ModalAllFriends from './ModalAllFriends';
 
 const LazyEventForm = React.lazy(() => import('./NewEventForm'));
 
-/*function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <LazyLoadedComponent />
-    </Suspense>
-  );
-}*/
-
-
 export default function UserPage({user}) {
-    const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [showModalFriends, setModalFriends] = useState(false);
 
-    return (
+  return (
     <Suspense fallback={<div>Завантажую...</div>}>
-      <Sidebar info={user} />
+      <Sidebar info={user} showModalFriends={() => setModalFriends(true)} />
       <div className='events__board'>
-          {user.events.length > 0 ? user.events.map((el, id) => <Event information={el} key={id} />) : 'no event yet.'}
+          {user.events.length > 0 ? user.events.map((el, id) => <Event information={el} key={id} />) : 'заплановані події відсутні.'}
       </div>
       <button className='addEnventBtn' onClick={() => setShowForm(true)}>+</button>   
-      {showForm && <LazyEventForm closeForm={() => setShowForm(false)} friends={user.friends} email={user.email} />} 
+      {showForm && <LazyEventForm closeForm={() => setShowForm(false)} email={user.email} />} 
+      {showModalFriends && <ModalAllFriends userEmail={user.email} hideModalFriends={() => setModalFriends(false)} />}  
     </Suspense>
   )
 }

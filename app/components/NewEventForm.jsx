@@ -9,15 +9,32 @@
  * @param {string} props.email - Електронна адреса користувача.
  * @returns {JSX.Element} Форма створення заходу.
  */
-import React,{ useState } from "react"
+import React,{ useState, useEffect } from "react"
 import Input from "./Input"
-import SearchContainer from "./SearchContainer"
-import addEventToDB from "./helpers/eventToDB";
+import SelectFriends from "./SelectFriends"
+import addEventToDB from "../lib/eventToDB";
 
 
-export default function EventForm({closeForm, friends, email}) {
+export default function EventForm({closeForm, email}) {
     const [showFriends, setShowFriends] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [allFriends, setAllFriends] = useState([]);
+    const [selectedFriends, setSelectedFriends] = useState([]);
+
+    const loadFriends = async () => {
+        const res = await fetch(`/api/friends?email=${email}`);
+        const data = await res.json();
+        setAllFriends(data);
+    }
+    
+    useEffect(() => {
+        loadFriends();
+    }, [email]);
+
+
+    const showSelectFriends = (isFriendVisible) => setShowFriends(isFriendVisible);
+
+    const getFriends = (friends) => setSelectedFriends(friends);
 
     /**
      * Обробляє подію відправки форми.
@@ -70,8 +87,9 @@ export default function EventForm({closeForm, friends, email}) {
      */
     const sendInvitations = (eventDetails) => {
         // send to friends' emails!!!  ADD FRIENDS TO DB
-    };
 
+
+    };
     
     return (
         <div className = 'new-event'>
@@ -94,7 +112,16 @@ export default function EventForm({closeForm, friends, email}) {
                 <Input Ilabel='Локація' Itype='text' Iplaceholder='enter address' Iname='location' hasError={() => console.log('+')} />
                 <Input Ilabel='Дата' Itype='date' Iplaceholder='' Iname='date' hasError={() => console.log('+')} />
                 <Input Ilabel='Час' Itype='time' Iplaceholder='' Iname='time' hasError={() => console.log('+')} />
-                {showFriends ? <SearchContainer people={friends} /> : <button className='new_event__friends' onClick={() => setShowFriends(true)}>Friends</button>}
+                <ul className="new_event__selected_friends">
+                    {selectedFriends.map((el, id) => (<li key={id}>{el.name}</li>))}
+                </ul>
+                <button className='new_event__friendsBtn' onClick={() => showSelectFriends(true)}>Add Friends</button>
+                {showFriends &&
+                    <SelectFriends
+                    availableFriends={allFriends.filter(f => !selectedFriends.map(s => s.email).includes(f.email))}
+                    choosenFriends={selectedFriends}
+                    isShowFriends={() => showSelectFriends(false)}
+                    getListFriends={getFriends} />}
                 <button className = 'new-event__form__sendBtn'>Send Invitations!</button>
             </form>
             {errorMessage == '' ? '' : <p className="new-event__error_message">{errorMessage}</p>}

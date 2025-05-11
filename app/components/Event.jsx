@@ -19,6 +19,13 @@ import ChangeEventForm from "./ChangeEventForm";
 export default function Event({ information }) {
     const [showInformation, setShowInformation] = useState('');
 
+    const eventDateTime = new Date(`${information.date}T${information.time}`);
+    const now = new Date();
+
+    const isPast = now > eventDateTime;
+
+    const buttonClass = isPast ? 'event event_past' : 'event event_upcoming';
+
     /**
      * Змінює стан показу інформації про подію.
      * 
@@ -47,7 +54,7 @@ export default function Event({ information }) {
     return (
         <>
             {showInformation && createPortal(renderModalContent(), document.body)}
-            <button className='event' onClick={() => handleChangeInfo('info')}>{information.title}</button>
+            <button className={buttonClass} onClick={() => handleChangeInfo('info')}>{information.title}</button>
         </>
     );
 }

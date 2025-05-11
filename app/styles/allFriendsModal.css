@@ -1,0 +1,97 @@
+
+.modal_friends{
+    width: 45%;
+    height: 25%;
+    margin: 5% auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #242424;
+    border: 1px solid rgb(236, 130, 49);
+    box-shadow: 1px 1px 10px rgb(236, 130, 49);
+    border-radius: 10px;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 0 .6rem 0 .6rem;
+}
+
+.modal_friends button{
+    background-color: #242424;
+    border: none;
+}
+
+.modal_close{
+    width:2%;
+    position: relative;
+    left: 95%;
+    margin: .2rem;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.modal_friends table{
+    margin-bottom: .6rem;
+    border-collapse: collapse;
+}
+
+.modal_friends table td{
+    text-align: center;
+    border: 3px solid #525252;
+    padding: .3rem;
+}
+
+.friends_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.friends_buttons button{
+    color: white;
+    background-color: rgb(240, 104, 0);
+    margin: 1rem .7rem .5rem 0;
+    padding: .4rem .8rem;
+    border-radius: 5px;
+}
+
+.friends_buttons button:hover{
+    cursor: pointer;
+    color: rgb(240, 104, 0);
+    background-color: white;
+}
+
+.modal_close:hover,
+.modal_form_confirm:hover,
+.modal_form_reject:hover{
+    cursor: pointer;
+    color: rgb(240, 104, 0);
+}
+
+.modal_form div{
+    display: inline-flex;
+}
+
+.modal_form input{
+    display: inline;
+    background-color: white;
+    width: 80%;
+    margin-right: 1.2rem;
+    font-size: .9rem;
+    padding: 4px;
+}
+
+.modal_list li {
+    display: flex;
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    margin-bottom: 5px;
+}
+
+.modal_list li button {
+    margin-right: .5rem;
+    font-size: 1.3rem;
+}
+
+.loading_friends{
+    color: white;
+    text-align: center;
+}

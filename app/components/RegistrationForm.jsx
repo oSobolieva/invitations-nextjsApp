@@ -47,11 +47,13 @@ export default function RegistrationForm() {
 
             if (response.status == 400) {
                 setRegistrationError({ error: true, text: 'Email вже існує' });
+                setLoading(false);
             } else if (response.status == 200) {
                 route.push('/login');
             }
         } catch (er) {
             setRegistrationError({ error: true, text: 'Щось пішло не так:( Спробуйте знову' });
+            setLoading(false);
         }
         
     }

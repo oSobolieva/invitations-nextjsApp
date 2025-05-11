@@ -25,12 +25,12 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
-import addNewAvatar from './helpers/changeAvatar.js'
+import addNewAvatar from '../lib/changeAvatar.js'
 
 import '../../app/styles/userPage.css'
 import avatarRandomizer from './helpers/avatarRandomizer.js';
 
-export default function Sidebar({ info }) {
+export default function Sidebar({ info, showModalFriends }) {
     const [showSidebar, setShowSidebar] = useState({
         buttonClass: 'show-sidebar',
         sidebarClass: 'sidebar hidden',
@@ -90,9 +90,10 @@ export default function Sidebar({ info }) {
                         <input type='file' id='sidebar_changeLogo' accept='image/*' onChange={handleAvatar}/>
                     </div>
                     <h2 className='sidebar_name'>{info.name}</h2>
-                    <p className = 'sidebar_email'>{info.email}</p>
+                    <p className='sidebar_email'>{info.email}</p>
+                    <button className="sidebar_friends_button" onClick={showModalFriends}>My Friends</button>
                 </div>
-                <button className = 'sidebar_button' onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
+                <button className = 'sidebar_exit_button' onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
             </aside>
         </>
     )
