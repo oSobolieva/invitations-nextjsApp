@@ -1,0 +1,64 @@
+.event_information {
+    position: relative;
+    left: 30%;
+    width: 45%;
+    border-radius: 20px;
+    padding: .7rem 1rem .7rem 1.3rem;
+    background-color: #242424;
+    border: 1px solid rgb(236, 130, 49);
+    box-shadow: 1px 1px 10px rgb(236, 130, 49);
+    color: rgb(236, 130, 49);
+    box-sizing: border-box;
+}
+
+.event_information div {
+    display: inline-flex;
+}
+
+.event_information input {
+    display: inline;
+}
+
+.event_information__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.event_information__header button {
+    border: none;
+    background-color: #242424;
+    font-size: .8rem;
+}
+
+.event_information__actions {
+    display: flex;
+}
+
+.event_information__header p,
+.event_information__header label {
+    margin-bottom: 0;
+}
+
+.event_information label {
+    display: block;
+    margin: .9rem 0 .9rem 0;
+}
+
+.event_information span {
+    color: rgb(230, 165, 116);
+}
+
+.change_event_inform {
+    background-color: #242424;
+    border: none;
+    font-size: 1rem;
+}
+
+.event_information input,
+.event_information select {
+    background-color: #242424;
+    border: 1px solid grey;
+    border-radius: 8px;
+    font-size: 1rem;
+}

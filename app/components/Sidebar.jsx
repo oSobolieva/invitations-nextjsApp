@@ -27,15 +27,11 @@ import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import addNewAvatar from '../lib/changeAvatar.js'
 
-import '../../app/styles/userPage.css'
+import styles from "../styles/Sidebar.module.css"
 import avatarRandomizer from './helpers/avatarRandomizer.js';
 
 export default function Sidebar({ info, showModalFriends }) {
-    const [showSidebar, setShowSidebar] = useState({
-        buttonClass: 'show-sidebar',
-        sidebarClass: 'sidebar hidden',
-        hidden: true,
-    });
+    const [isHidden, setIsHidden] = useState(true);
     const text = '>>>';
     let avatar = info.image;
     
@@ -43,19 +39,7 @@ export default function Sidebar({ info, showModalFriends }) {
     Перемикає видимість бічної панелі.
     */
     function showSidebarFn() {
-        if (showSidebar.hidden) {
-            setShowSidebar({
-                buttonClass: 'show-sidebar show-sidebar-move',
-                sidebarClass: 'sidebar',
-                hidden: false,
-            })
-        } else {
-            setShowSidebar({
-                buttonClass: 'show-sidebar',
-                sidebarClass: 'sidebar hidden',
-                hidden: true,
-            })
-        } 
+        setIsHidden(prev => !prev);
     }
 
     if (info.image == '') {
@@ -78,22 +62,24 @@ export default function Sidebar({ info, showModalFriends }) {
         } 
     } 
 
+    const buttonClass = `${styles['show-sidebar']} ${!isHidden ? styles['show-sidebar-move'] : ''}`;
+    const sidebarClass = `${styles.sidebar} ${isHidden ? styles.hidden : ''}`;
     
     return (
         <>
-            <button className={showSidebar.buttonClass} onClick={showSidebarFn}>{text}</button>
-            <aside className={showSidebar.sidebarClass}>
+            <button className={buttonClass} onClick={showSidebarFn}>{text}</button>
+            <aside className={sidebarClass}>
                 <div>
-                    <div className = 'sidebar_avatar'>
-                        <Image src={avatar} loading="lazy" width={135} height={135} className='sidebar_logo' />
-                        <label htmlFor='sidebar_changeLogo' title='change the avatar'>&#9997;</label>
-                        <input type='file' id='sidebar_changeLogo' accept='image/*' onChange={handleAvatar}/>
+                    <div className={styles.sidebar_avatar}>
+                        <Image src={avatar} loading="lazy" width={135} height={135} className={styles.sidebar_logo} />
+                        <label htmlFor='sidebar_changeLogo' className={styles.avatar_label} title='change the avatar'>&#9997;</label>
+                        <input type='file' id='sidebar_changeLogo' className={styles.avatar_input} accept='image/*' onChange={handleAvatar}/>
                     </div>
-                    <h2 className='sidebar_name'>{info.name}</h2>
-                    <p className='sidebar_email'>{info.email}</p>
-                    <button className="sidebar_friends_button" onClick={showModalFriends}>My Friends</button>
+                    <h2 className={styles.sidebar_name}>{info.name}</h2>
+                    <p className={styles.sidebar_email}>{info.email}</p>
+                    <button className={styles.sidebar_friends_button} onClick={showModalFriends}>My Friends</button>
                 </div>
-                <button className = 'sidebar_exit_button' onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
+                <button className={styles.sidebar_exit_button} onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
             </aside>
         </>
     )

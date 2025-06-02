@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Input from './Input'
-import '../../app/styles/allFriendsModal.css'
+import styles from '../../app/styles/AllFriendsModal.module.css'
 
 export default function ModalAllFriends({ userEmail, hideModalFriends }) {
     const [friends, setFriends] = useState([]);
@@ -76,14 +76,14 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
 
 
     return (
-        <div className="modal_friends">
-            <button className="modal_close" onClick={hideModalFriends}>x</button>         
+        <div className={styles.modal_friends}>
+            <button className={styles.modal_close} onClick={hideModalFriends}>x</button>         
             {isLoadingFriends ? (
-                <div className="loading_friends">Завантажую...</div>
+                <div className={styles.loading_friends}>Завантажую...</div>
             ) : friends.length > 0 ? (
                 isRemoveFriend ? (
                     <>
-                        <ul className="modal_list">
+                            <ul className={styles.modal_list}>
                             {friends.map((el, id) => (
                                 <li key={id}>
                                     <button onClick={() => handleDelete(el.email)}>&#128686;</button>
@@ -110,7 +110,7 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
             )}
 
 
-            {isAddFriend && !isRemoveFriend && <form className='modal_form' onSubmit={addNewFriend}>
+            {isAddFriend && !isRemoveFriend && <form className={styles.modal_form} onSubmit={addNewFriend}>
                 <Input
                     Iplaceholder="Ім'я"
                     Itype='text'
@@ -125,10 +125,10 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
                     value={newFriendEmail}
                     onChange={(e) => setNewFriendEmail(e.target.value)} />
                 
-                <button className='modal_form_confirm' disabled={isConfirmDisabled()}>&#9989;</button>
-                <button className='modal_form_reject' onClick={() => showAddFriend(false)}>&#10060;</button>
+                <button className={styles.modal_form_confirm} disabled={isConfirmDisabled()}>&#9989;</button>
+                <button className={styles.modal_form_reject} onClick={() => showAddFriend(false)}>&#10060;</button>
             </form>}
-            <div className="friends_buttons">
+            <div className={styles.friends_buttons}>
                 <button onClick={() => showAddFriend(true)}>Add</button>
                 <button onClick={() => showRemoveFriend(true)}>Delete</button>
             </div>

@@ -7,7 +7,7 @@
  */
 import { useRouter } from 'next/navigation';
 
-import '@/app/styles/loginPage.css'
+import styles from "../styles/UserPage.module.css"
 
 export default function GoHome() {
     const route = useRouter();
@@ -17,6 +17,6 @@ export default function GoHome() {
      */
     const go = () => route.push('/');
 
-    return <button className = 'goHome_button'onClick={go}>&#128072;</button>
+    return <button className={styles.goHome_button} onClick={go}>&#128072;</button>
 }
 

@@ -1,16 +1,20 @@
 'use client'
 import React from "react";
 import { useState } from "react";
+import { useFriends } from '../context/FriendsContext';
 
-import '@/app/styles/userPage.css'
+import styles from "../styles/SelectFriends.module.css"
 
 
-export default function SelectFriends({ availableFriends, choosenFriends, isShowFriends, getListFriends }) {
+export default function SelectFriends({ isShowFriends }) {
+  const {
+    selectedFriends,
+    availableFriends,
+    setSelectedFriends
+  } = useFriends();
+
   const [draggingItem, setDraggingItem] = useState(null);
   const [sourceList, setSourceList] = useState(null);
-
-  const [listForAdd, setListA] = useState([...choosenFriends]);
-  const [listAll, setListAll] = useState([...availableFriends]);
 
   const handleDragStart = (item, fromList) => {
     setDraggingItem(item);
@@ -21,52 +25,58 @@ export default function SelectFriends({ availableFriends, choosenFriends, isShow
     e.preventDefault();
   };
 
-  const handleDrop = (toListSetter, toList) => {
+  const handleDrop = (target) => {
     if (!draggingItem || !sourceList) return;
 
-    const removeFromSource = sourceList === 'A' ? listForAdd : listAll;
-    const setSource = sourceList === 'A' ? setListA : setListAll;
+    const fromSelected = sourceList === 'A';
+    const toSelected = target === 'A';
 
-    const updatedSource = removeFromSource.filter(i => i !== draggingItem);
-    setSource(updatedSource);
+    if (fromSelected === toSelected) return;
 
-    toListSetter([...toList, draggingItem]);
+    if (toSelected) {
+      setSelectedFriends([...selectedFriends, draggingItem]);
+    } else {
+      setSelectedFriends(selectedFriends.filter(f => f.email !== draggingItem.email));
+    }
 
     setDraggingItem(null);
     setSourceList(null);
   };
 
-  function sendListOfFriends() {
-    getListFriends(listForAdd);
-
+  const handleConfirm = () => {
     isShowFriends();
-  }
+  };
 
   return (
-    <div className='select_friends'>
-
+    <div className={styles.select_friends}>
       <div
-        className="select_friends_zone"
+        className={styles.select_friends_zone}
         onDragOver={handleDragOver}
-        onDrop={() => handleDrop(setListA, listForAdd)}
+        onDrop={() => handleDrop('A')}
       >
-        {listForAdd.length>0 ? listForAdd.map((item, index) => (
-          <div
-            key={index}
-            draggable
-            onDragStart={() => handleDragStart(item, 'A')}
-          >
-            {item.name}
-          </div>
-        )) : <p className="select_friends_guide">Щоб обрати запрошених, перетягніть ярлички з іх іменами знизу сюди.</p>}
+        {selectedFriends.length > 0 ? (
+          selectedFriends.map((item, index) => (
+            <div
+              key={index}
+              draggable
+              onDragStart={() => handleDragStart(item, 'A')}
+            >
+              {item.name}
+            </div>
+          ))
+        ) : (
+            <p className={styles.select_friends_guide}>
+            Щоб обрати запрошених, перетягніть ярлички з іх іменами знизу сюди.
+          </p>
+        )}
       </div>
 
       <div
-        className="select_friends_zone"
+        className={styles.select_friends_zone}
         onDragOver={handleDragOver}
-        onDrop={() => handleDrop(setListAll, listAll)}
+        onDrop={() => handleDrop('B')}
       >
-        {listAll.map((item, index) => (
+        {availableFriends.map((item, index) => (
           <div
             key={index}
             draggable
@@ -77,8 +87,8 @@ export default function SelectFriends({ availableFriends, choosenFriends, isShow
         ))}
       </div>
 
-      <div className="select_friends_buttons">
-        <button onClick={sendListOfFriends}>&#9989;</button>
+      <div className={styles.select_friends_buttons}>
+        <button onClick={handleConfirm}>&#9989;</button>
         <button onClick={isShowFriends}>&#10060;</button>
       </div>
     </div>

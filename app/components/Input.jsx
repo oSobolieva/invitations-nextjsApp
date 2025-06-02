@@ -18,7 +18,7 @@ import Image from 'next/image'
 import validateForm from "./helpers/validateForm";
 import eye from './assets/password-eye.png'
 
-import '@/app/styles/inputs.css'
+import styles from "../styles/Input.module.css"
 
 export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, hasError, ...props }) {
     const [errorMessage, setErrorMessage] = useState({
@@ -72,13 +72,13 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
     const inputType = Iname === "password" ? (isPasswordVisible ? "text" : "password") : Itype;
     
     return (
-        <div className = 'form_block'>
-            <label className='form_label'>
+        <div className={styles.form_block}>
+            <label className={styles.form_label}>
                 {Ilabel}
                 <input
                     type={inputType}
                     placeholder={Iplaceholder}
-                    className={errorMessage.error ? 'form_input error-input' : 'form_input'}
+                    className={errorMessage.error ? `${styles.form_input} ${styles.error_input}` : styles.form_input}
                     name={Iname}
                     onBlur={checkBlur}
                     ref={inputRef}
@@ -88,13 +88,13 @@ export default function Input({ Ilabel='', Itype, Iplaceholder, Iname=Itype, has
                 {Iname === 'password' && (
                     <Image src={eye}
                         alt="Show password"
-                        className='form__input_eye'
+                        className={styles.form__input_eye}
                         tabIndex="-1"
                         onMouseDown={(e) => e.preventDefault()}
                         onClick={togglePasswordVisibility} />
                 )}
             </label>           
-            {errorMessage.error && <p className='error-message'>{errorMessage.text}</p>}
+            {errorMessage.error && <p className={styles.error_message}>{errorMessage.text}</p>}
         </div>
     )
 }

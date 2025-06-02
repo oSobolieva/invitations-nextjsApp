@@ -1,0 +1,82 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 15%;
+    height: 100vh;
+    background-color: rgb(255, 62, 62);
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    text-align: center;
+    padding: 40px 0 20px 0;
+    box-sizing: border-box;
+
+    transition: .7s ease;
+}
+
+.hidden {
+    transform: translateX(-100%);
+}
+
+.show-sidebar {
+    position: absolute;
+    top: 3%;
+    left: 0;
+    width: 5%;
+    padding: 2px 0 2px 0;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: rgb(255, 62, 62);
+    color: white;
+    font-size: 22px;
+    box-shadow: none;
+    transition: .7s ease;
+}
+
+.show-sidebar-move {
+    transform: translateX(280%);
+}
+
+.sidebar_friends_button {
+    background-color: rgb(255, 62, 62);
+    color: white;
+    font-size: 28px;
+    width: 80%;
+    margin: 3rem auto;
+    border-bottom: 1px solid #eaeaea;
+    cursor: pointer;
+}
+
+.sidebar_exit_button {
+    background-color: rgb(255, 62, 62);
+    color: white;
+    font-size: 28px;
+    box-shadow: none;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sidebar_button:hover {
+    box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar_avatar {
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar_logo {
+    border-radius: 50%;
+}
+
+.avatar_label{
+    cursor: pointer;
+}
+
+.avatar_input{
+    display: none;
+}

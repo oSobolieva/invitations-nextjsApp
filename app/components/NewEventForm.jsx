@@ -12,29 +12,18 @@
 import React,{ useState, useEffect } from "react"
 import Input from "./Input"
 import SelectFriends from "./SelectFriends"
-import addEventToDB from "../lib/eventToDB";
+import { useFriends } from '../context/FriendsContext';
+import addEventToDB from "../lib/eventService";
+
+import styles from "../styles/NewEventForm.module.css"
 
 
 export default function EventForm({closeForm, email}) {
-    const [showFriends, setShowFriends] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [allFriends, setAllFriends] = useState([]);
-    const [selectedFriends, setSelectedFriends] = useState([]);
+    const { selectedFriends, clearFriends } = useFriends();
+  const [showFriends, setShowFriends] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const loadFriends = async () => {
-        const res = await fetch(`/api/friends?email=${email}`);
-        const data = await res.json();
-        setAllFriends(data);
-    }
-    
-    useEffect(() => {
-        loadFriends();
-    }, [email]);
-
-
-    const showSelectFriends = (isFriendVisible) => setShowFriends(isFriendVisible);
-
-    const getFriends = (friends) => setSelectedFriends(friends);
+  const showSelectFriends = (isFriendVisible) => setShowFriends(isFriendVisible);
 
     /**
      * Обробляє подію відправки форми.
@@ -47,6 +36,7 @@ export default function EventForm({closeForm, email}) {
 
         if (fieldsNotEmpty(formData)) {
             const eventDetails = {
+                _id: generateUniqueId(),
                 title: formData.get('title'),
                 type: formData.get('type'),
                 dresscode: formData.get('dresscode'),
@@ -88,16 +78,25 @@ export default function EventForm({closeForm, email}) {
     const sendInvitations = (eventDetails) => {
         // send to friends' emails!!!  ADD FRIENDS TO DB
 
-
     };
+
+    function generateUniqueId() {
+        return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function handleCloseForm() {
+        clearFriends();
+        closeForm();
+    }
+      
     
     return (
-        <div className = 'new-event'>
-            <div className='new-event__title'>
+        <div className={styles.new_event}>
+            <div className={styles.new_event__title}>
                 <h1>New Event</h1>
-                <button onClick={closeForm}>X</button>
+                <button onClick={handleCloseForm}>X</button>
             </div>
-            <form className='new-event__form' onSubmit={sendForm}>
+            <form className={styles.new_event__form} onSubmit={sendForm}>
                 <Input Ilabel='Назва заходу' Itype='text' Iplaceholder='enter event' Iname='title' hasError={() => console.log('+')} />
                 <select name='type'>
                     <option>Вечірка</option>
@@ -112,19 +111,16 @@ export default function EventForm({closeForm, email}) {
                 <Input Ilabel='Локація' Itype='text' Iplaceholder='enter address' Iname='location' hasError={() => console.log('+')} />
                 <Input Ilabel='Дата' Itype='date' Iplaceholder='' Iname='date' hasError={() => console.log('+')} />
                 <Input Ilabel='Час' Itype='time' Iplaceholder='' Iname='time' hasError={() => console.log('+')} />
-                <ul className="new_event__selected_friends">
+                <ul className={styles.new_event__selected_friends}>
                     {selectedFriends.map((el, id) => (<li key={id}>{el.name}</li>))}
                 </ul>
-                <button className='new_event__friendsBtn' onClick={() => showSelectFriends(true)}>Add Friends</button>
+                <button className={styles.new_event__friendsBtn} onClick={() => showSelectFriends(true)}>Add Friends</button>
                 {showFriends &&
                     <SelectFriends
-                    availableFriends={allFriends.filter(f => !selectedFriends.map(s => s.email).includes(f.email))}
-                    choosenFriends={selectedFriends}
-                    isShowFriends={() => showSelectFriends(false)}
-                    getListFriends={getFriends} />}
-                <button className = 'new-event__form__sendBtn'>Send Invitations!</button>
+                    isShowFriends={() => showSelectFriends(false)}/>}
+                <button className={styles.new_event__form__sendBtn}>Send Invitations!</button>
             </form>
-            {errorMessage == '' ? '' : <p className="new-event__error_message">{errorMessage}</p>}
+            {errorMessage == '' ? '' : <p className={styles.new_event__error_message}>{errorMessage}</p>}
         </div>  
     )
 }

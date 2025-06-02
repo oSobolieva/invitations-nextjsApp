@@ -1,5 +1,5 @@
 import RegistrationForm from '../components/RegistrationForm'
-import GoHome from '../components/goHomeBtn'
+import GoHome from '../components/goHomeButton'
 
 export default async function RegistrationPage() {
   return (

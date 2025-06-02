@@ -23,6 +23,9 @@ import React, { useState, Suspense } from 'react';
 import Sidebar from './Sidebar';
 import Event from './Event';
 import ModalAllFriends from './ModalAllFriends';
+import { FriendsProvider } from '../context/FriendsContext';
+
+import styles from "../styles/UserPage.module.css"
 
 const LazyEventForm = React.lazy(() => import('./NewEventForm'));
 
@@ -33,11 +36,14 @@ export default function UserPage({user}) {
   return (
     <Suspense fallback={<div>Завантажую...</div>}>
       <Sidebar info={user} showModalFriends={() => setModalFriends(true)} />
-      <div className='events__board'>
-          {user.events.length > 0 ? user.events.map((el, id) => <Event information={el} key={id} />) : 'заплановані події відсутні.'}
-      </div>
-      <button className='addEnventBtn' onClick={() => setShowForm(true)}>+</button>   
-      {showForm && <LazyEventForm closeForm={() => setShowForm(false)} email={user.email} />} 
+      <FriendsProvider email={user.email}>
+        <div className={styles.events__board}>
+          {user.events.length > 0 ? user.events.map((el, id) => <Event information={el} userEmail={user.email} key={id} />) : 'заплановані події відсутні.'}
+        </div>
+        <button className={styles.addEnventBtn} onClick={() => setShowForm(true)}>+</button>   
+        {showForm && <LazyEventForm closeForm={() => setShowForm(false)} email={user.email} />}
+      </FriendsProvider>
+
       {showModalFriends && <ModalAllFriends userEmail={user.email} hideModalFriends={() => setModalFriends(false)} />}  
     </Suspense>
   )

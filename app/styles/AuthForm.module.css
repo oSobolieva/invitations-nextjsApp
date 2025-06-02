@@ -1,4 +1,4 @@
-.register__form {
+.auth_form {
     width: 25%;
     background-color: white;
     padding: 15px 0px 25px 0px;
@@ -8,13 +8,13 @@
     font-family: sans-serif;
 }
 
-.register__form__title{
+.auth_form__title{
     color: black;
     font-size: 1rem;
     text-align: center;
 }
 
-.register__form_button {
+.auth_form__button {
     background-color: rgb(255, 98, 0);
     color: white;
     font-weight: 600;
@@ -27,7 +27,16 @@
     cursor: pointer;
 }
 
-.register__form_button:disabled{
+.auth_form__button:disabled{
     background-color: rgb(255, 149, 82);
     cursor: auto;
+}
+
+.auth_form__error_text {
+    color: rgb(255, 47, 0);
+    font-size: .8rem;
+}
+
+.unauthorized_error {
+    margin: 1rem auto;
 }

@@ -1,7 +1,7 @@
 
 .modal_friends{
     width: 45%;
-    height: 25%;
+    max-height: 22rem;
     margin: 5% auto;
     display: flex;
     flex-direction: column;
@@ -9,7 +9,7 @@
     border: 1px solid rgb(236, 130, 49);
     box-shadow: 1px 1px 10px rgb(236, 130, 49);
     border-radius: 10px;
-    overflow: auto;
+    overflow-y: auto;
     box-sizing: border-box;
     padding: 0 .6rem 0 .6rem;
 }

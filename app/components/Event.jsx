@@ -15,16 +15,16 @@ import React, { useState } from "react";
 import EventInform from "./EventInform"
 import ChangeEventForm from "./ChangeEventForm";
 
+import styles from "../styles/UserPage.module.css"
 
-export default function Event({ information }) {
+
+export default function Event({ information, userEmail }) {
     const [showInformation, setShowInformation] = useState('');
 
     const eventDateTime = new Date(`${information.date}T${information.time}`);
     const now = new Date();
 
     const isPast = now > eventDateTime;
-
-    const buttonClass = isPast ? 'event event_past' : 'event event_upcoming';
 
     /**
      * Змінює стан показу інформації про подію.
@@ -45,7 +45,7 @@ export default function Event({ information }) {
             case 'info':
                 return <EventInform information={information} handleChangeInfo={() => handleChangeInfo('change_info')} closeEventInfo={() => handleChangeInfo('')} />;
             case 'change_info':
-                return <ChangeEventForm information={information} closeEventInfo={() => handleChangeInfo('')} />;
+                return <ChangeEventForm information={information} email={userEmail} closeEventInfo={() => handleChangeInfo('info')} />;
             default:
                 return null;
         }
@@ -54,8 +54,8 @@ export default function Event({ information }) {
     return (
         <>
             {showInformation && createPortal(renderModalContent(), document.body)}
-            <button className={buttonClass} onClick={() => handleChangeInfo('info')}>{information.title}</button>
+            <button className={isPast ? `${styles.event} ${styles.event_past}` : `${styles.event} ${styles.event_upcoming}`}
+                onClick={() => handleChangeInfo('info')}>{information.title}</button>
         </>
     );
 }
-

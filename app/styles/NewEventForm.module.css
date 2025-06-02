@@ -1,0 +1,76 @@
+.new_event {
+    position: absolute;
+    top: 3%;
+    left: 30%;
+    z-index: 4;
+    width: 40%;
+    padding: 1rem 2rem;
+    border-radius: 1.4rem;
+    background-color: rgb(236, 130, 49);
+}
+
+.new_event__title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new_event__title h1 {
+    color: #242424;
+    margin: 0;
+}
+
+.new_event__title button {
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #242424;
+}
+
+.new_event__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.new_event__selected_friends {
+    list-style: none;
+    color: #242424;
+}
+
+.new_event__friendsBtn {
+    width: fit-content;
+    padding: .8rem;
+    border-radius: 45%;
+    background-color: rgb(252, 202, 158);
+    color: #242424;
+}
+
+.new_event__form select {
+    width: 70%;
+    background-color: rgb(252, 202, 158);
+    border: grey;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 8px 0px 8px 10px;
+    margin-bottom: 15px;
+    color: #242424;
+}
+
+.new_event__form__sendBtn {
+    background-color: rgb(236, 130, 49);
+    border: 2px solid #242424;
+    border-radius: 25px;
+    width: 32%;
+    margin: 0 auto;
+    padding: .5rem;
+    color: #242424;
+    font-size: 1rem;
+}
+
+.new_event__error_message {
+    font-size: .8rem;
+    margin: 0 auto;
+    color: rgb(172, 3, 3);
+}
