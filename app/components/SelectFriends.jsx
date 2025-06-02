@@ -10,7 +10,8 @@ export default function SelectFriends({ isShowFriends }) {
   const {
     selectedFriends,
     availableFriends,
-    setSelectedFriends
+    setSelectedFriends,
+    clearFriends,
   } = useFriends();
 
   const [draggingItem, setDraggingItem] = useState(null);
@@ -46,6 +47,11 @@ export default function SelectFriends({ isShowFriends }) {
   const handleConfirm = () => {
     isShowFriends();
   };
+
+  const hadnleReject = () => {
+    clearFriends();
+    isShowFriends();
+  }
 
   return (
     <div className={styles.select_friends}>
@@ -89,7 +95,7 @@ export default function SelectFriends({ isShowFriends }) {
 
       <div className={styles.select_friends_buttons}>
         <button onClick={handleConfirm}>&#9989;</button>
-        <button onClick={isShowFriends}>&#10060;</button>
+        <button onClick={hadnleReject}>&#10060;</button>
       </div>
     </div>
   );

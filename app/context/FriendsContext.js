@@ -25,9 +25,9 @@ export const FriendsProvider = ({ email, children }) => {
     setSelectedFriends(prev => prev.filter(f => f.email !== friend.email));
     };
     
-    const clearFriends = () => {
-        setSelectedFriends([]);
-    };
+  const clearFriends = () => {
+    setSelectedFriends([]);
+  };
 
   const availableFriends = allFriends.filter(
     f => !selectedFriends.some(sf => sf.email === f.email)
@@ -41,6 +41,7 @@ export const FriendsProvider = ({ email, children }) => {
         addFriend,
         removeFriend,
         clearFriends,
+        setAllFriends,
         setSelectedFriends
     }}>
       {children}

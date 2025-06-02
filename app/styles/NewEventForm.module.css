@@ -15,6 +15,7 @@
 }
 
 .new_event__title h1 {
+    font-size: 1.3rem;
     color: #242424;
     margin: 0;
 }
@@ -34,9 +35,22 @@
     flex-direction: column;
 }
 
+.new_event__form input{
+    background-color: rgb(252, 202, 158);
+    border: grey;
+    border-radius: 8px;
+    font-size: .8rem;
+    padding: 6px 0px 6px 9px;
+    color: #242424;
+    width: 75%;
+    margin-left: .4rem;
+}
+
 .new_event__selected_friends {
     list-style: none;
     color: #242424;
+    max-height: 3rem;
+    overflow-y: auto;
 }
 
 .new_event__friendsBtn {
@@ -48,7 +62,7 @@
 }
 
 .new_event__form select {
-    width: 70%;
+    width: 65%;
     background-color: rgb(252, 202, 158);
     border: grey;
     border-radius: 8px;

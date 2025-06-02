@@ -1,5 +1,6 @@
 .event_information {
-    position: relative;
+    position: absolute;
+    top: 15%;
     left: 30%;
     width: 45%;
     border-radius: 20px;
@@ -9,14 +10,6 @@
     box-shadow: 1px 1px 10px rgb(236, 130, 49);
     color: rgb(236, 130, 49);
     box-sizing: border-box;
-}
-
-.event_information div {
-    display: inline-flex;
-}
-
-.event_information input {
-    display: inline;
 }
 
 .event_information__header {
@@ -40,11 +33,6 @@
     margin-bottom: 0;
 }
 
-.event_information label {
-    display: block;
-    margin: .9rem 0 .9rem 0;
-}
-
 .event_information span {
     color: rgb(230, 165, 116);
 }
@@ -60,5 +48,37 @@
     background-color: #242424;
     border: 1px solid grey;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: .85rem;
+    color: white;
+    width: 68%;
+    margin-left: .3rem;
+}
+
+.event_information select{
+    margin-left: .7rem;
+}
+
+.event_information label{
+    color: rgb(236, 130, 49);
+}
+
+.event_information__save,
+.event_information__delete{
+    background-color: #242424;
+    font-size: 1.1rem;
+    margin-left: .6rem;
+}
+
+.event_information__friendsBtn{
+    width: fit-content;
+    padding: .5rem;
+    border-radius: 45%;
+    background-color: rgb(236, 130, 49);
+    color: white;
+    margin-bottom: .5rem;
+}
+
+.event_information__selected_friends{
+    max-height: 3rem;
+    overflow-y: auto;
 }

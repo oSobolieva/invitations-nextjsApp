@@ -5,6 +5,7 @@
 }
 
 .form_label {
+    font-size: .9rem;
     position: relative;
     color: black;
 }
@@ -13,16 +14,16 @@
     background-color: rgb(252, 202, 158);
     border: grey;
     border-radius: 8px;
-    font-size: .9rem;
+    font-size: 1rem;
     padding: 8px 0px 8px 10px;
     color: #242424;
-    width: 90%;
+    width: 80%;
 }
 
 .form__input_eye{
     position: absolute;
-    width: 1.2rem;
-    height: 1.1rem;
+    width: 1.1rem;
+    height: 1rem;
     top: 50%;
     right: 10%;
 }

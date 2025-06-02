@@ -19,7 +19,7 @@
 import styles from "../styles/EventInformation.module.css"
 
 export default function EventInform({ information, handleChangeInfo, closeEventInfo }) {
-    
+
     return (
         <div className={styles.event_information}>
             <div className={styles.event_information__header}>
@@ -31,7 +31,11 @@ export default function EventInform({ information, handleChangeInfo, closeEventI
             <p>Опис:  <span> {information.description}</span></p>
             <p>Локація:  <span> {information.location}</span></p>
             <p>Дата:  <span> {information.date}</span></p>
-            <p>Час:  <span> {information.time}</span></p>   
+            <p>Час:  <span> {information.time}</span></p>
+            <p>Друзі:</p>
+            <ul>
+                {information.friends.map((el, id) => <li key={id}>{el.name}</li>)}
+            </ul>
             <button className={styles.change_event_inform} onClick={() => handleChangeInfo()}>&#9997;</button>
         </div>
     )

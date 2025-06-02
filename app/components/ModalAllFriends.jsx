@@ -64,6 +64,7 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
         });
 
         loadFriends();
+        setAllFriends(friends);
     }
 
     const isConfirmDisabled = () => {

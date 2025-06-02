@@ -13,13 +13,14 @@ import React,{ useState, useEffect } from "react"
 import Input from "./Input"
 import SelectFriends from "./SelectFriends"
 import { useFriends } from '../context/FriendsContext';
-import addEventToDB from "../lib/eventService";
+import { addEventToDB } from "../lib/eventService";
+import {sendInvitations} from "../lib/sendInvitations"
 
 import styles from "../styles/NewEventForm.module.css"
 
 
-export default function EventForm({closeForm, email}) {
-    const { selectedFriends, clearFriends } = useFriends();
+export default function EventForm({closeForm, userName, email, successHandler}) {
+  const { selectedFriends, clearFriends } = useFriends();
   const [showFriends, setShowFriends] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -30,11 +31,12 @@ export default function EventForm({closeForm, email}) {
      * 
      * @param {Event} e - Подія форми.
      */
-    const sendForm = (e) => {
+    async function sendForm(e){
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
 
         if (fieldsNotEmpty(formData)) {
+            setErrorMessage('');
             const eventDetails = {
                 _id: generateUniqueId(),
                 title: formData.get('title'),
@@ -45,11 +47,11 @@ export default function EventForm({closeForm, email}) {
                 time: formData.get('time'),
                 location: formData.get('location')
             };
-            
-            sendInvitations(eventDetails);
-            addEventToDB(eventDetails, email);
+
+            await addEventToDB({ ...eventDetails, friends: selectedFriends }, email);
+            sendhandler(eventDetails);         
         } else {
-            setErrorMessage('All fields need to have text.');
+            setErrorMessage('Всі поля мають бути заповнені.');
         }
     };
 
@@ -66,7 +68,8 @@ export default function EventForm({closeForm, email}) {
             form.get('description').trim() !== '' &&
             form.get('location').trim() !== '' &&
             form.get('date').trim() !== '' &&
-            form.get('time').trim() !== ''
+            form.get('time').trim() !== '' &&
+            selectedFriends.length > 0
         );
     };
 
@@ -75,9 +78,23 @@ export default function EventForm({closeForm, email}) {
      * 
      * @param {Object} eventDetails - Деталі заходу.
      */
-    const sendInvitations = (eventDetails) => {
-        // send to friends' emails!!!  ADD FRIENDS TO DB
+    async function sendhandler(eventDetails){
+        const friendsEmails = selectedFriends.map(friendsInfo => {
+            return friendsInfo['email'];
+        });
+          
+        console.log(friendsEmails);
 
+        const letterType = "create";
+
+        const result = await sendInvitations({ eventDetails, friendsEmails, letterType, userName, email });
+
+        if (result.success) {
+            handleCloseForm();
+            successHandler();
+        } else {
+            setStatus('Error: ' + result.error);
+        }         
     };
 
     function generateUniqueId() {
@@ -93,7 +110,7 @@ export default function EventForm({closeForm, email}) {
     return (
         <div className={styles.new_event}>
             <div className={styles.new_event__title}>
-                <h1>New Event</h1>
+                <h1>Створити Подію</h1>
                 <button onClick={handleCloseForm}>X</button>
             </div>
             <form className={styles.new_event__form} onSubmit={sendForm}>
