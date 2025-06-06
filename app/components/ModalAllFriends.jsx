@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import Input from './Input'
+import { useFriends } from '../context/FriendsContext';
 import styles from '../../app/styles/AllFriendsModal.module.css'
 
 export default function ModalAllFriends({ userEmail, hideModalFriends }) {
     const [friends, setFriends] = useState([]);
+    const {refreshFriends} = useFriends();
 
     const [newFriendName, setNewFriendName] = useState('');
     const [newFriendEmail, setNewFriendEmail] = useState('');
@@ -44,6 +46,7 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
         
         showAddFriend(false);
         loadFriends();
+        refreshFriends();
     }
 
     const handleAdd = async (name, email) => {
@@ -64,7 +67,7 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
         });
 
         loadFriends();
-        setAllFriends(friends);
+        refreshFriends();
     }
 
     const isConfirmDisabled = () => {
@@ -107,7 +110,7 @@ export default function ModalAllFriends({ userEmail, hideModalFriends }) {
                     </table>
                 )
             ) : (
-                'ти ще не зберігав друзів.'
+                'Ви ще не зберігали друзів.'
             )}
 
 

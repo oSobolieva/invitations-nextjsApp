@@ -12,6 +12,7 @@
     "docs": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.1.5",
     "bcrypt": "^5.1.1",
     "mongodb": "^6.3.0",
     "next": "14.1.0",

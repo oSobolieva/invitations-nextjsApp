@@ -7,14 +7,18 @@ export const FriendsProvider = ({ email, children }) => {
   const [selectedFriends, setSelectedFriends] = useState([]);
 
   useEffect(() => {
+    refreshFriends();
+  }, [email]);
+
+  const refreshFriends = () => {
     if (email) {
       fetch(`/api/friends?email=${email}`)
         .then(res => res.json())
         .then(data => setAllFriends(data))
         .catch(err => console.error(err));
     }
-  }, [email]);
-
+  };
+  
   const addFriend = (friend) => {
     if (!selectedFriends.some(f => f.email === friend.email)) {
       setSelectedFriends(prev => [...prev, friend]);
@@ -42,7 +46,8 @@ export const FriendsProvider = ({ email, children }) => {
         removeFriend,
         clearFriends,
         setAllFriends,
-        setSelectedFriends
+        setSelectedFriends,
+        refreshFriends
     }}>
       {children}
     </FriendsContext.Provider>

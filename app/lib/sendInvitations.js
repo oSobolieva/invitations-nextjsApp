@@ -28,7 +28,7 @@ export async function sendInvitations({ eventDetails, friendsEmails, letterType,
             
             З нетерпінням чекаю!`;
             break; 
-        case "delete":
+        case "cancel":
             message = `Привіт! Це я - ${userName}. Хочу попередити, що я ВІДМІНЯЮ ${eventDetails.title}, що мало бути 
             ${eventDetails.date} у ${eventDetails.location}.
             На жаль мої плани трохи змінилися, проте я обов'язково попереджу вас, якщо знову організую!`;
@@ -42,7 +42,7 @@ export async function sendInvitations({ eventDetails, friendsEmails, letterType,
     });
 
     if (!res.ok) {
-        throw new Error(`Ошибка сервера: ${res.status}`);
+        throw new Error(`Помилка сервера: ${res.status}`);
     }
       
     const text = await res.text();

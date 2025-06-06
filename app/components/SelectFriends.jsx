@@ -1,18 +1,23 @@
 'use client'
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFriends } from '../context/FriendsContext';
+import ConfirmModal from "./ConfirmModal";
 
 import styles from "../styles/SelectFriends.module.css"
 
 
-export default function SelectFriends({ isShowFriends }) {
+export default function SelectFriends({ closeShowFriends }) {
   const {
     selectedFriends,
     availableFriends,
     setSelectedFriends,
     clearFriends,
   } = useFriends();
+
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [hideRejectWarning, setHideRejectWarning] = useState(false);
+
 
   const [draggingItem, setDraggingItem] = useState(null);
   const [sourceList, setSourceList] = useState(null);
@@ -44,17 +49,46 @@ export default function SelectFriends({ isShowFriends }) {
     setSourceList(null);
   };
 
+  useEffect(() => {
+    const hide = localStorage.getItem('hideRejectWarning');
+    if (hide === 'true') setHideRejectWarning(true);
+  }, []);
+
+  useEffect(() => {
+      localStorage.setItem('hideRejectWarning', hideRejectWarning);
+  }, [hideRejectWarning]);
+
+
   const handleConfirm = () => {
-    isShowFriends();
+    closeShowFriends();
   };
 
   const hadnleReject = () => {
-    clearFriends();
-    isShowFriends();
+    if (hideRejectWarning) {
+      clearFriends();
+      closeShowFriends();
+    } else {
+      setShowRejectModal(true);
+    }
   }
 
   return (
     <div className={styles.select_friends}>
+      {showRejectModal && (
+        <ConfirmModal
+            message="Натиснувши, ви очистите список обраних друзів!"
+            onConfirm={() => {
+              clearFriends();
+              setShowRejectModal(false);
+              closeShowFriends();
+          }}
+            onCancel={() => setShowRejectModal(false)}
+            dontShowAgain={hideRejectWarning}
+          setDontShowAgain={setHideRejectWarning}
+          showCkeckbox="true"
+        />
+      )}
+      
       <div
         className={styles.select_friends_zone}
         onDragOver={handleDragOver}
@@ -94,8 +128,8 @@ export default function SelectFriends({ isShowFriends }) {
       </div>
 
       <div className={styles.select_friends_buttons}>
-        <button onClick={handleConfirm}>&#9989;</button>
-        <button onClick={hadnleReject}>&#10060;</button>
+        <button type="button" onClick={handleConfirm}>&#9989;</button>
+        <button type="button" onClick={hadnleReject}>&#10060;</button>
       </div>
     </div>
   );

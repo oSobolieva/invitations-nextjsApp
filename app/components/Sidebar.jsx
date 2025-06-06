@@ -33,17 +33,15 @@ import avatarRandomizer from './helpers/avatarRandomizer.js';
 export default function Sidebar({ info, showModalFriends }) {
     const [isHidden, setIsHidden] = useState(true);
     const text = '>>>';
-    let avatar = info.image;
+    const [avatar] = useState(() => {
+        return info.image === '' ? avatarRandomizer() : info.image;
+    });
     
     /**
     Перемикає видимість бічної панелі.
     */
     function showSidebarFn() {
         setIsHidden(prev => !prev);
-    }
-
-    if (info.image == '') {
-        avatar = avatarRandomizer();
     }
 
     /**
@@ -71,7 +69,7 @@ export default function Sidebar({ info, showModalFriends }) {
             <aside className={sidebarClass}>
                 <div>
                     <div className={styles.sidebar_avatar}>
-                        <Image src={avatar} loading="lazy" width={135} height={135} className={styles.sidebar_logo} />
+                        <Image src={avatar} alt="avatar" width={135} height={135} className={styles.sidebar_logo} />
                         <label htmlFor='sidebar_changeLogo' className={styles.avatar_label} title='change the avatar'>&#9997;</label>
                         <input type='file' id='sidebar_changeLogo' className={styles.avatar_input} accept='image/*' onChange={handleAvatar}/>
                     </div>

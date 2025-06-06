@@ -29,20 +29,30 @@ import styles from "../styles/UserPage.module.css"
 
 const LazyEventForm = React.lazy(() => import('./NewEventForm'));
 
-export default function UserPage({user}) {
+export default function UserPage({ user }) {
+  const [events, setEvents] = useState(user.events || []);
   const [showForm, setShowForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showModalFriends, setModalFriends] = useState(false);
+
+  function showSuccessMessage() {
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 5000);
+  }
 
   return (
     <Suspense fallback={<div>Завантажую...</div>}>
       <FriendsProvider email={user.email}>
         <Sidebar info={user} showModalFriends={() => setModalFriends(true)} />
         <div className={styles.events__board}>
-          {user.events.length > 0 ? user.events.map((el, id) => <Event information={el} userEmail={user.email} userName={user.name} key={id} />) : 'заплановані події відсутні.'}
+          {events.length > 0
+            ?
+            events.map((el, id) => <Event information={el} setEvents={setEvents} userEmail={user.email} userName={user.name} key={id} />)
+            : 'заплановані події відсутні.'}
         </div>
         <button className={styles.addEnventBtn} onClick={() => setShowForm(true)}>+</button>   
-        {showForm && <LazyEventForm closeForm={() => setShowForm(false)} userName={user.name} email={user.email} successHandler={() => setShowSuccess(true)} />}
+        {showForm &&
+          <LazyEventForm closeForm={() => setShowForm(false)} setEvents={setEvents} userName={user.name} email={user.email} successHandler={() => showSuccessMessage()} />}
 
         {showSuccess && <p className={styles.succes_sending}>Листи успішно відправлені!&#128516;</p>}
         {showModalFriends && <ModalAllFriends userEmail={user.email} hideModalFriends={() => setModalFriends(false)} />}

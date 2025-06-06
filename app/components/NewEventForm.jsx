@@ -9,7 +9,7 @@
  * @param {string} props.email - Електронна адреса користувача.
  * @returns {JSX.Element} Форма створення заходу.
  */
-import React,{ useState, useEffect } from "react"
+import React,{ useState } from "react"
 import Input from "./Input"
 import SelectFriends from "./SelectFriends"
 import { useFriends } from '../context/FriendsContext';
@@ -19,7 +19,7 @@ import {sendInvitations} from "../lib/sendInvitations"
 import styles from "../styles/NewEventForm.module.css"
 
 
-export default function EventForm({closeForm, userName, email, successHandler}) {
+export default function EventForm({closeForm, setEvents, userName, email, successHandler}) {
   const { selectedFriends, clearFriends } = useFriends();
   const [showFriends, setShowFriends] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -90,6 +90,7 @@ export default function EventForm({closeForm, userName, email, successHandler}) 
         const result = await sendInvitations({ eventDetails, friendsEmails, letterType, userName, email });
 
         if (result.success) {
+            setEvents(prev => [...prev, { ...eventDetails, friends: selectedFriends }]);
             handleCloseForm();
             successHandler();
         } else {
@@ -99,13 +100,12 @@ export default function EventForm({closeForm, userName, email, successHandler}) 
 
     function generateUniqueId() {
         return 'id-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
-    }
+    } 
 
     function handleCloseForm() {
         clearFriends();
         closeForm();
-    }
-      
+    }    
     
     return (
         <div className={styles.new_event}>
@@ -131,10 +131,10 @@ export default function EventForm({closeForm, userName, email, successHandler}) 
                 <ul className={styles.new_event__selected_friends}>
                     {selectedFriends.map((el, id) => (<li key={id}>{el.name}</li>))}
                 </ul>
-                <button className={styles.new_event__friendsBtn} onClick={() => showSelectFriends(true)}>Add Friends</button>
+                <button type="button" className={styles.new_event__friendsBtn} onClick={() => showSelectFriends(true)}>Add Friends</button>
                 {showFriends &&
                     <SelectFriends
-                    isShowFriends={() => showSelectFriends(false)}/>}
+                    closeShowFriends={() => showSelectFriends(false)}/>}
                 <button className={styles.new_event__form__sendBtn}>Send Invitations!</button>
             </form>
             {errorMessage == '' ? '' : <p className={styles.new_event__error_message}>{errorMessage}</p>}

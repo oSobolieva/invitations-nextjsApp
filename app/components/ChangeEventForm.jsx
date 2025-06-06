@@ -22,15 +22,19 @@ import Input from "./Input";
 import SelectFriends from "./SelectFriends";
 import { useFriends } from '../context/FriendsContext';
 import { deleteEventFromDB, updateEventInDB } from "../lib/eventService";
-import {sendInvitations} from "../lib/sendInvitations"
+import { sendInvitations } from "../lib/sendInvitations"
+import ConfirmModal from "./ConfirmModal";
 
 import styles from "../styles/EventInformation.module.css";
 import errorStyle from "../styles/NewEventForm.module.css";
 
-export default function ChangeEventForm({ information, email, closeEventInfo, userName }) {
+export default function ChangeEventForm({ information, setEvents, email, closeEventInfo, userName }) {
     const { selectedFriends, clearFriends, setSelectedFriends } = useFriends();
     const [showFriends, setShowFriends] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [pendingAction, setPendingAction] = useState(null);
+    const [modalMessage, setModalMessage] = useState('');
 
     const [formData, setFormData] = useState({
         title: '',
@@ -63,26 +67,95 @@ export default function ChangeEventForm({ information, email, closeEventInfo, us
         closeEventInfo();
     }
     
+    function confirmSave() {
+        setPendingAction(() => () => handleSubmitAction());
+        setModalMessage('Ви зберігаєте зміни, ваші гості будуть про це попередженні новим листом');
+        setShowConfirmModal(true);
+    }
+    
+    function confirmDelete() {
+        setPendingAction(() => () => handleDelete());
+        setModalMessage('Ви видаляєте подію, ваші гості будуть попередженні про відміну новим листом');
+        setShowConfirmModal(true);
+    }
+    
+    function handleConfirm() {
+        if (pendingAction) pendingAction();
+        setShowConfirmModal(false);
+        setPendingAction(null);
+    }
+    
+    function handleCancel() {
+        setShowConfirmModal(false);
+        setPendingAction(null);
+    }
+    
+
     /**
      * Обробник надсилання форми. Перевіряє, чи всі поля заповнені, перед надсиланням даних.
      * 
      * @param {Event} e - Подія надсилання форми.
      */
-    function handleSubmit(e) {
-        e.preventDefault();
-
-        if (fieldsNotEmpty(formData)) {
-            const eventDetails = {
-                ...formData,
-                _id: information._id
-            };
-
-            sendHandler(eventDetails, "update");
-            updateEventInDB(information._id, { ...eventDetails, friends: selectedFriends }, email);
-        } else {
+    async function handleSubmitAction() {
+        if (!fieldsNotEmpty(formData)) {
             setErrorMessage('Всі поля мають бути заповнені.');
+            return;
+        }
+    
+        const eventDetails = {
+            ...formData,
+            _id: information._id
+        };
+    
+        const oldFriends = information.friends.map(f => f.email);
+        const newFriends = selectedFriends.map(f => f.email);
+    
+        const addedFriends = selectedFriends.filter(f => !oldFriends.includes(f.email));
+        const removedFriends = information.friends.filter(f => !newFriends.includes(f.email));
+        const keptFriends = selectedFriends.filter(f => oldFriends.includes(f.email));
+    
+        const infoWasChanged = eventInfoChanged(information, formData);
+    
+        await updateEventInDB(information._id, { ...eventDetails, friends: selectedFriends }, email);    
+        setEvents(prev => prev.map(ev => ev._id === information._id ? { ...eventDetails, friends: selectedFriends } : ev));
+    
+        if (addedFriends.length > 0) {
+            await sendHandler({
+                eventDetails,
+                friendsEmails: addedFriends.map(f => f["email"]),
+                letterType: "create"
+            });
+        }
+    
+        if (removedFriends.length > 0) {
+            await sendHandler({
+                eventDetails,
+                friendsEmails: removedFriends.map(f => f["email"]),
+                letterType: "cancel"
+            });
+        }
+    
+        if (infoWasChanged && keptFriends.length > 0) {
+            await sendHandler({
+                eventDetails,
+                friendsEmails: keptFriends.map(f => f["email"]),
+                letterType: "update"
+            });
         }
     }
+
+    function eventInfoChanged(oldInfo, newInfo) {
+        return (
+            oldInfo.title !== newInfo.title ||
+            oldInfo.type !== newInfo.type ||
+            oldInfo.dresscode !== newInfo.dresscode ||
+            oldInfo.description !== newInfo.description ||
+            oldInfo.date !== newInfo.date ||
+            oldInfo.time !== newInfo.time ||
+            oldInfo.location !== newInfo.location
+        );
+    }
+    
 
     /**
      * Перевіряє, чи всі необхідні поля форми заповнені.
@@ -102,9 +175,15 @@ export default function ChangeEventForm({ information, email, closeEventInfo, us
         );
       }
 
-    function handleDelete() {
-        deleteEventFromDB(information._id, email);
-        sendHandler(information, "delete");
+    async function handleDelete() {
+        await deleteEventFromDB(information._id, email);
+        sendHandler({
+            eventDetails: information,
+            friendsEmails: information.friends.map(f => f["email"]),
+            letterType: "cancel"
+        });
+        await setEvents(prevEvents => prevEvents.filter(ev => ev._id !== information._id));
+        handleCloseEventChange();
     }
 
     /**
@@ -112,12 +191,14 @@ export default function ChangeEventForm({ information, email, closeEventInfo, us
      * 
      * @param {Object} eventDetails - Деталі заходу.
      */
-    async function sendHandler(eventDetails, letterType){
-        const friendsEmails = selectedFriends.map(friendsInfo => {
-            return friendsInfo['email'];
-        });
+    async function sendHandler({ eventDetails, friendsEmails, letterType }) {
+        console.log('details: ' + eventDetails);
+        console.log('emails: ' + friendsEmails);
+        console.log('type: ' + letterType);
+        console.log('uname: ' + userName);
+        console.log('uemail: ' + email);
 
-        const result = await sendInvitations({ eventDetails, friendsEmails, letterType, userName, email });
+        const result = await sendInvitations({ eventDetails, friendsEmails, letterType, userName, email });     
 
         if (result.success) {
             handleCloseEventChange();
@@ -133,7 +214,7 @@ export default function ChangeEventForm({ information, email, closeEventInfo, us
 
 
     return (
-        <form className={styles.event_information} onSubmit={handleSubmit}>
+        <form className={styles.event_information} onSubmit={(e) => e.preventDefault()}>
             <div className={styles.event_information__header}>
                 <p>Змінити інформацію про подію</p>
                 <button onClick={handleCloseEventChange}>X</button>
@@ -170,13 +251,21 @@ export default function ChangeEventForm({ information, email, closeEventInfo, us
             </ul>
             <button type="button" className={styles.event_information__friendsBtn} onClick={() => setShowFriends(true)}>Add Friends</button>
             {showFriends &&
-                <SelectFriends isShowFriends={() => setShowFriends(false)}/>}
+                <SelectFriends closeShowFriends={() => setShowFriends(false)}/>}
 
             {errorMessage == '' ? '' : <p className={errorStyle.new_event__error_message}>{errorMessage}</p>}
             <div className={styles.event_information__actions}>
-                <button type="submit" className={styles.event_information__save}>&#9989;</button>
-                <button type="button" className={styles.event_information__delete} onClick={handleDelete}>&#128686;</button>
+                <button type="button" className={styles.event_information__save} onClick={confirmSave}>&#9989;</button>
+                <button type="button" className={styles.event_information__delete} onClick={confirmDelete}>&#128686;</button>
             </div>
+            {showConfirmModal && (
+                    <ConfirmModal
+                        message={modalMessage}
+                        onConfirm={handleConfirm}
+                        onCancel={handleCancel}
+                        showCkeckbox="false"
+                    />
+            )}
         </form>
     )
 }

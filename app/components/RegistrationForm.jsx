@@ -24,9 +24,21 @@ export default function RegistrationForm() {
 
     async function checkUser(e) {
         e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const name = formData.get('name')?.trim();
+        const surname = formData.get('surname')?.trim();
+        const email = formData.get('email')?.trim();
+        const password = formData.get('password')?.trim();
+
+        if (!name || !surname || !email || !password) {
+            setRegistrationError({ error: true, text: 'Будь ласка, заповніть усі поля' });
+            return;
+        }
+
         setLoading(true);
         
-        const formData = new FormData(e.currentTarget);
         const userName = formData.get('name') + ' ' + formData.get('surname');
 
         try {
@@ -72,8 +84,8 @@ export default function RegistrationForm() {
                 <Input Ilabel='Введіть Email' Iplaceholder='example12@ukr.net' Itype='email' hasError={getError}/>
                 <Input Ilabel='Введіть пароль' Iplaceholder='Ivan1995' Itype='password' Iname='password' hasError={getError}/>
                 <button className={styles.auth_form__button} disabled={!disabledButton}>Зареєструватися</button>
-                {registrationError.error && <p className={styles.unauthorized_error}>{registrationError.text}</p>}
             </form>
+            {registrationError.error && <p className={styles.unauthorized_error}>{registrationError.text}</p>}
         </>
         
     )

@@ -18,7 +18,7 @@ import ChangeEventForm from "./ChangeEventForm";
 import styles from "../styles/UserPage.module.css"
 
 
-export default function Event({ information, userEmail, userName }) {
+export default function Event({ information, setEvents, userEmail, userName }) {
     const [showInformation, setShowInformation] = useState('');
 
     const eventDateTime = new Date(`${information.date}T${information.time}`);
@@ -45,7 +45,7 @@ export default function Event({ information, userEmail, userName }) {
             case 'info':
                 return <EventInform information={information} handleChangeInfo={() => handleChangeInfo('change_info')} closeEventInfo={() => handleChangeInfo('')} />;
             case 'change_info':
-                return <ChangeEventForm information={information} email={userEmail} userName={userName} closeEventInfo={() => handleChangeInfo('info')} />;
+                return <ChangeEventForm information={information} setEvents={setEvents} email={userEmail} userName={userName} closeEventInfo={() => handleChangeInfo('info')} />;
             default:
                 return null;
         }
