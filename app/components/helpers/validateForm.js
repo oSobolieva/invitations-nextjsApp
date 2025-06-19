@@ -13,7 +13,7 @@ module.exports = function validateForm(value, type) {
 
       switch (type) {
             case 'text':
-                  if (!/^[A-z'-]+$/.test(value)) {
+                  if (!/^[A-Za-zА-Яа-яІіЇїЄєҐґ'-]+$/.test(value)) {
                         return { error: true, text: 'Цьому полю потрібен текст' };
                   } else {
                         return { error: false, text: '' };

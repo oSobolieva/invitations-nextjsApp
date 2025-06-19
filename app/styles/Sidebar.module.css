@@ -3,7 +3,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 15%;
+    width: 16%;
     height: 100vh;
     background-color: rgb(255, 62, 62);
     position: absolute;
@@ -38,7 +38,7 @@
 }
 
 .show-sidebar-move {
-    transform: translateX(280%);
+    transform: translateX(295%);
 }
 
 .sidebar_friends_button {
