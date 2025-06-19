@@ -1,0 +1,84 @@
+.event_information {
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    width: 45%;
+    border-radius: 20px;
+    padding: .7rem 1rem .7rem 1.3rem;
+    background-color: #242424;
+    border: 1px solid rgb(236, 130, 49);
+    box-shadow: 1px 1px 10px rgb(236, 130, 49);
+    color: rgb(236, 130, 49);
+    box-sizing: border-box;
+}
+
+.event_information__header {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.event_information__header button {
+    border: none;
+    background-color: #242424;
+    font-size: .8rem;
+}
+
+.event_information__actions {
+    display: flex;
+}
+
+.event_information__header p,
+.event_information__header label {
+    margin-bottom: 0;
+}
+
+.event_information span {
+    color: rgb(230, 165, 116);
+}
+
+.change_event_inform {
+    background-color: #242424;
+    border: none;
+    font-size: 1rem;
+}
+
+.event_information input,
+.event_information select {
+    background-color: #242424;
+    border: 1px solid grey;
+    border-radius: 8px;
+    font-size: .85rem;
+    color: white;
+    width: 68%;
+    margin-left: .3rem;
+}
+
+.event_information select{
+    margin-left: .7rem;
+}
+
+.event_information label{
+    color: rgb(236, 130, 49);
+}
+
+.event_information__save,
+.event_information__delete{
+    background-color: #242424;
+    font-size: 1.1rem;
+    margin-left: .6rem;
+}
+
+.event_information__friendsBtn{
+    width: fit-content;
+    padding: .5rem;
+    border-radius: 45%;
+    background-color: rgb(236, 130, 49);
+    color: white;
+    margin-bottom: .5rem;
+}
+
+.event_information__selected_friends{
+    max-height: 3rem;
+    overflow-y: auto;
+}

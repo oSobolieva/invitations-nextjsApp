@@ -5,6 +5,7 @@
 }
 
 .form_label {
+    font-size: .9rem;
     position: relative;
     color: black;
 }
@@ -13,7 +14,7 @@
     background-color: rgb(252, 202, 158);
     border: grey;
     border-radius: 8px;
-    font-size: .9rem;
+    font-size: 1rem;
     padding: 8px 0px 8px 10px;
     color: #242424;
     width: 90%;
@@ -21,8 +22,8 @@
 
 .form__input_eye{
     position: absolute;
-    width: 1.2rem;
-    height: 1.1rem;
+    width: 1.1rem;
+    height: 1rem;
     top: 50%;
     right: 10%;
 }
@@ -31,12 +32,12 @@
     cursor: pointer;
 }
 
-.error-input {
+.error_input {
     border: 2px solid red;
     background-color: rgb(252, 175, 158);
 }
 
-.error-message {
+.error_message {
     color: red;
     font-size: .5rem;
     font-weight: 600;

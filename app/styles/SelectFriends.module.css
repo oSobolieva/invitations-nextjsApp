@@ -1,0 +1,48 @@
+.select_friends {
+    position: absolute;
+    right: 2%;
+    top: 15%;
+    width: 96%;
+    height: 55%;
+    border-radius: 1.1rem;
+    border: 1px solid rgb(27, 27, 27);
+    background-color: rgb(226, 206, 191);
+}
+
+.select_friends_zone {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: 43%;
+    overflow-y: auto;
+    border-bottom: 3px solid rgb(124, 49, 9);
+}
+
+.select_friends_guide {
+    width: 100%;
+    text-align: center;
+    font-family: sans-serif;
+    color: black;
+    font-size: .85rem;
+}
+
+.select_friends_zone div {
+    height: fit-content;
+    background-color: rgb(242, 175, 103);
+    border: 2px solid rgb(236, 130, 49);
+    border-radius: 15px;
+    padding: .5rem;
+    margin: .4rem;
+}
+
+.select_friends_buttons {
+    text-align: center;
+    padding-top: .4rem;
+}
+
+.select_friends_buttons button {
+    background-color: rgb(226, 206, 191);
+    border: none;
+    font-size: 1rem;
+    margin-left: .8rem;
+}

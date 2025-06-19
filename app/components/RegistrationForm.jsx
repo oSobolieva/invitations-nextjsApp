@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Input from './Input';
 
-import '@/app/styles/registerPage.css'
-import '@/app/styles/loading.css'
+import styles from '@/app/styles/AuthForm.module.css'
+import loadingStyles from '@/app/styles/Loading.module.css'
 
 
 export default function RegistrationForm() {
@@ -24,9 +24,21 @@ export default function RegistrationForm() {
 
     async function checkUser(e) {
         e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const name = formData.get('name')?.trim();
+        const surname = formData.get('surname')?.trim();
+        const email = formData.get('email')?.trim();
+        const password = formData.get('password')?.trim();
+
+        if (!name || !surname || !email || !password) {
+            setRegistrationError({ error: true, text: 'Будь ласка, заповніть усі поля' });
+            return;
+        }
+
         setLoading(true);
         
-        const formData = new FormData(e.currentTarget);
         const userName = formData.get('name') + ' ' + formData.get('surname');
 
         try {
@@ -47,11 +59,13 @@ export default function RegistrationForm() {
 
             if (response.status == 400) {
                 setRegistrationError({ error: true, text: 'Email вже існує' });
+                setLoading(false);
             } else if (response.status == 200) {
                 route.push('/login');
             }
         } catch (er) {
             setRegistrationError({ error: true, text: 'Щось пішло не так:( Спробуйте знову' });
+            setLoading(false);
         }
         
     }
@@ -62,16 +76,16 @@ export default function RegistrationForm() {
 
     return (
         <>
-            {loading && <span className="loader"></span>}
-            <form className='register__form' onSubmit={checkUser}>
-                <h1 className = 'register__form__title'>- Реєстрація - </h1>
+            {loading && <span className={loadingStyles.loader}></span>}
+            <form className={styles.auth_form} onSubmit={checkUser}>
+                <h1 className={styles.auth_form__title}>- Реєстрація - </h1>
                 <Input Ilabel="Введіть ім'я" Iplaceholder='Іван' Itype='text' Iname='name' hasError={getError} />
                 <Input Ilabel='Введіть прізвище' Iplaceholder='Андрієнко' Itype='text' Iname='surname' hasError={getError} />
                 <Input Ilabel='Введіть Email' Iplaceholder='example12@ukr.net' Itype='email' hasError={getError}/>
                 <Input Ilabel='Введіть пароль' Iplaceholder='Ivan1995' Itype='password' Iname='password' hasError={getError}/>
-                <button className='register__form_button' disabled={!disabledButton}>Зареєструватися</button>
-                {registrationError.error && <p style={{ color: 'red' }}>{registrationError.text}</p>}
+                <button className={styles.auth_form__button} disabled={!disabledButton}>Зареєструватися</button>
             </form>
+            {registrationError.error && <p className={styles.unauthorized_error}>{registrationError.text}</p>}
         </>
         
     )

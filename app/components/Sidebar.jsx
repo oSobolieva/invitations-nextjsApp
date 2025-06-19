@@ -1,42 +1,54 @@
 'use client'
+
+/**
+Бічна панель користувача.
+
+Відображає інформацію про користувача, включаючи аватар, ім'я та email.
+
+Також дозволяє змінювати аватар та виходити з облікового запису.
+
+@component
+
+@param {Object} props - Пропси компонента.
+
+@param {Object} props.info - Інформація про користувача.
+
+@param {string} props.info.image - URL аватара користувача.
+
+@param {string} props.info.name - Ім'я користувача.
+
+@param {string} props.info.email - Email користувача.
+
+@returns {JSX.Element} Бічна панель з інформацією про користувача.
+*/
+
 import React, { useState } from 'react'
 import Image from 'next/image';
 import { signOut } from 'next-auth/react';
-import addNewAvatar from './helpers/changeAvatar.js'
+import addNewAvatar from '../lib/changeAvatar.js'
 
-//import '@/app/styles/userPage.css'
-import '../../app/styles/userPage.css'
+import styles from "../styles/Sidebar.module.css"
 import avatarRandomizer from './helpers/avatarRandomizer.js';
 
-export default function Sidebar({ info }) {
-    const [showSidebar, setShowSidebar] = useState({
-        buttonClass: 'show-sidebar',
-        sidebarClass: 'sidebar hidden',
-        hidden: true,
-    });
+export default function Sidebar({ info, showModalFriends }) {
+    const [isHidden, setIsHidden] = useState(true);
     const text = '>>>';
-    let avatar = info.image;
+    const [avatar] = useState(() => {
+        return info.image === '' ? avatarRandomizer() : info.image;
+    });
     
+    /**
+    Перемикає видимість бічної панелі.
+    */
     function showSidebarFn() {
-        if (showSidebar.hidden) {
-            setShowSidebar({
-                buttonClass: 'show-sidebar show-sidebar-move',
-                sidebarClass: 'sidebar',
-                hidden: false,
-            })
-        } else {
-            setShowSidebar({
-                buttonClass: 'show-sidebar',
-                sidebarClass: 'sidebar hidden',
-                hidden: true,
-            })
-        } 
+        setIsHidden(prev => !prev);
     }
 
-    if (info.image == '') {
-        avatar = avatarRandomizer();
-    }
+    /**
+    Обробляє зміну аватара користувача.
 
+    @param {Event} e - Подія завантаження файлу.
+    */
     function handleAvatar(e) {
         if (e.target.files[0]) {
             let reader = new FileReader();
@@ -48,21 +60,24 @@ export default function Sidebar({ info }) {
         } 
     } 
 
+    const buttonClass = `${styles['show-sidebar']} ${!isHidden ? styles['show-sidebar-move'] : ''}`;
+    const sidebarClass = `${styles.sidebar} ${isHidden ? styles.hidden : ''}`;
     
     return (
         <>
-            <button className={showSidebar.buttonClass} onClick={showSidebarFn}>{text}</button>
-            <aside className={showSidebar.sidebarClass}>
+            <button className={buttonClass} onClick={showSidebarFn}>{text}</button>
+            <aside className={sidebarClass}>
                 <div>
-                    <div className = 'sidebar_avatar'>
-                        <Image src={avatar} loading="lazy" width={135} height={135} className='sidebar_logo' />
-                        <label htmlFor='sidebar_changeLogo' title='change the avatar'>&#9997;</label>
-                        <input type='file' id='sidebar_changeLogo' accept='image/*' onChange={handleAvatar}/>
+                    <div className={styles.sidebar_avatar}>
+                        <Image src={avatar} alt="avatar" width={135} height={135} className={styles.sidebar_logo} />
+                        <label htmlFor='sidebar_changeLogo' className={styles.avatar_label} title='change the avatar'>&#9997;</label>
+                        <input type='file' id='sidebar_changeLogo' className={styles.avatar_input} accept='image/*' onChange={handleAvatar}/>
                     </div>
-                    <h2 className='sidebar_name'>{info.name}</h2>
-                    <p className = 'sidebar_email'>{info.email}</p>
+                    <h2 className={styles.sidebar_name}>{info.name}</h2>
+                    <p className={styles.sidebar_email}>{info.email}</p>
+                    <button className={styles.sidebar_friends_button} onClick={showModalFriends}>My Friends</button>
                 </div>
-                <button className = 'sidebar_button' onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
+                <button className={styles.sidebar_exit_button} onClick={() => signOut({callbackUrl: '/'})}>Exit</button>
             </aside>
         </>
     )
